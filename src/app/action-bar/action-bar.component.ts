@@ -13,9 +13,14 @@ export class ActionBarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
   newElement(): void {
     this.scope.stageHandler.newElement();
+  }
+
+  deleteElement(): void {
+    this.scope.stageHandler.deleteElement();
   }
 }
