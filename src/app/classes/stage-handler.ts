@@ -2,13 +2,16 @@ import * as createjs from 'createjs-module';
 import { timer } from 'rxjs/observable/timer';
 
 import { Process } from './process';
+import { Scope } from './scope';
 import { MouseEventExtension, StageExtension } from './extensions';
 
 export class StageHandler {
   stage: StageExtension;
+  scope: Scope;
   
 
-  constructor(canvasName: string) {
+  constructor(canvasName: string, scope: Scope) {
+    this.scope = scope;
     this.stage = new StageExtension(canvasName);
     (this.stage.canvas as HTMLCanvasElement).style.width='100%';
     (this.stage.canvas as HTMLCanvasElement).width = (this.stage.canvas as HTMLCanvasElement).offsetWidth;
@@ -20,7 +23,7 @@ export class StageHandler {
   newElement(): void {
     var process = new Process();
     this.stage.addChild(process.image.container);
-    this.addEventHandlersToContainer(process.image.container);
+    this.addEventHandlersToContainer(process.image.container, this.scope);
     timer(100).subscribe(val => {
       this.stage.update();
     });
@@ -35,7 +38,7 @@ export class StageHandler {
     });
   }
 
-  addEventHandlersToContainer(container: createjs.Container): void {
+  addEventHandlersToContainer(container: createjs.Container, scope: Scope): void {
     container.on("mousedown", function (evt: MouseEventExtension) {
       //this.parent.addChild(this);
       this.stage.selectedContainer = this;
@@ -53,6 +56,10 @@ export class StageHandler {
           this.y = evt.stageY + this.offset.y;
           this.stage.update();
       }
+    });
+
+    container.on("dblclick", function (evt) {
+      scope.showDetail = !scope.showDetail;
     });
   }
 }
