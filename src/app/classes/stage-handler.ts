@@ -3,7 +3,7 @@ import { timer } from 'rxjs/observable/timer';
 
 import { Process } from './process';
 import { Scope } from './scope';
-import { MouseEventExtension, StageExtension } from './extensions';
+import { MouseEventExtension, StageExtension, ContainerExtension } from './extensions';
 
 export class StageHandler {
   stage: StageExtension;
@@ -21,9 +21,9 @@ export class StageHandler {
   }
 
   newProcess(process: Process): void {
-    process.setProcessImage();
-    this.stage.addChild(process.processImage.container);
-    this.addEventHandlersToContainer(process.processImage.container, this.scope);
+    var container = new ContainerExtension(process);
+    this.stage.addChild(container);
+    this.addEventHandlersToContainer(container, this.scope);
     timer(100).subscribe(val => {
       this.stage.update();
     });
@@ -38,9 +38,9 @@ export class StageHandler {
     });
   }
 
-  addEventHandlersToContainer(container: createjs.Container, scope: Scope): void {
+  addEventHandlersToContainer(container: ContainerExtension, scope: Scope): void {
     container.on("mousedown", function (evt: MouseEventExtension) {
-      //this.parent.addChild(this);
+      // scope.currentProcess = container.process;
       this.stage.selectedContainer = this;
       this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
     });

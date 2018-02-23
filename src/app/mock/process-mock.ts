@@ -1,5 +1,4 @@
 import { Process } from "../classes/process";
-import { ProcessImage } from "../classes/process-image";
 
 
 export const PROCESSES_T1: Process[] = [
