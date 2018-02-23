@@ -1,8 +1,8 @@
 <div>
   <div class="row">
-    <app-simulator-canvas [scope]="scope" [ngClass]="{'col-8': 1===1, 'col-12': 1===2}">
+    <app-simulator-canvas [scope]="scope" [ngClass]="{'col-8': scope.showDetail, 'col-12': !scope.showDetail}">
     </app-simulator-canvas>
-    <app-process-detail *ngIf="1==1" [ngClass]="{'col-4': 1===1}">
+    <app-process-detail *ngIf="scope.showDetail" [ngClass]="{'col-4': scope.showDetail}">
     </app-process-detail>
   </div>
   <app-action-bar [scope]="scope"></app-action-bar>

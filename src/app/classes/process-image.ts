@@ -1,6 +1,5 @@
 import * as createjs from 'createjs-module';
 
-
 export class ProcessImage {
   id: number;
   name: string;
@@ -14,4 +13,6 @@ export class ProcessImage {
     this.container.y = 20;
     this.container.addChild(this.bitmap);
   }
+
+  
 }
