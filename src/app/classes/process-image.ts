@@ -6,8 +6,8 @@ export class ProcessImage {
   container: createjs.Container;
   bitmap: createjs.Bitmap;
 
-  constructor() {
-    this.bitmap = new createjs.Bitmap('./assets/azul.png');
+  constructor(image: string) {
+    this.bitmap = new createjs.Bitmap(image);
     this.container = new createjs.Container();
     this.container.x = 20;
     this.container.y = 20;

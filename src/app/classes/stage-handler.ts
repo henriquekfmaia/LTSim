@@ -20,10 +20,10 @@ export class StageHandler {
     this.stage.mouseMoveOutside = true; // keep tracking the mouse even when it leaves the canvas
   }
 
-  newElement(): void {
-    var process = new Process();
-    this.stage.addChild(process.image.container);
-    this.addEventHandlersToContainer(process.image.container, this.scope);
+  newProcess(process: Process): void {
+    process.setProcessImage();
+    this.stage.addChild(process.processImage.container);
+    this.addEventHandlersToContainer(process.processImage.container, this.scope);
     timer(100).subscribe(val => {
       this.stage.update();
     });
