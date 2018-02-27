@@ -15,7 +15,7 @@ export class StageHandler {
     this.stage = new StageExtension(canvasName);
     (this.stage.canvas as HTMLCanvasElement).style.width='100%';
     (this.stage.canvas as HTMLCanvasElement).width = (this.stage.canvas as HTMLCanvasElement).offsetWidth;
-    (this.stage.canvas as HTMLCanvasElement).height = window.innerHeight * 0.8;
+    (this.stage.canvas as HTMLCanvasElement).height = window.innerHeight * 0.5;
     this.stage.enableMouseOver(10); // enabled mouse over / out events
     this.stage.mouseMoveOutside = true; // keep tracking the mouse even when it leaves the canvas
   }
@@ -23,7 +23,7 @@ export class StageHandler {
   newProcess(process: Process): void {
     var container = new ContainerExtension(process);
     this.stage.addChild(container);
-    this.addEventHandlersToContainer(container, this.scope);
+    this.addEventHandlersToProcessContainer(container, this.scope);
     timer(100).subscribe(val => {
       this.stage.update();
     });
@@ -38,11 +38,12 @@ export class StageHandler {
     });
   }
 
-  addEventHandlersToContainer(container: ContainerExtension, scope: Scope): void {
+  addEventHandlersToProcessContainer(container: ContainerExtension, scope: Scope): void {
     container.on("mousedown", function (evt: MouseEventExtension) {
       // scope.currentProcess = container.process;
       this.stage.selectedContainer = this;
       this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
+      
     });
 
     container.on("mouseup", function (evt) {
@@ -59,7 +60,12 @@ export class StageHandler {
     });
 
     container.on("dblclick", function (evt) {
+
       scope.showDetail = !scope.showDetail;
+      // (this.stage.canvas as HTMLCanvasElement).style.width='100%';
+      // (this.stage.canvas as HTMLCanvasElement).width = (this.stage.canvas as HTMLCanvasElement).offsetWidth;
+      // (this.stage.canvas as HTMLCanvasElement).height = window.innerHeight * 0.5;
+      // this.stage.update();
     });
   }
 }

@@ -1,5 +1,8 @@
-<div>
-    <p>
-        {{scope.stageHandler.stage.selectedContainer.process.name}}
-    </p>
-</div>
+<br>
+<form>
+    <div class="form-group">
+        <label for="processName">Name</label>
+        <input type="text" class="form-control" id="processName" 
+        placeholder="{{scope.stageHandler.stage.selectedContainer.process.name}}" readonly>
+    </div>
+</form>

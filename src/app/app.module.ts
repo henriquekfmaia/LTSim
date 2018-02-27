@@ -11,6 +11,7 @@ import { SimulatorInterfaceComponent } from './simulator-interface/simulator-int
 import { SimulatorCanvasComponent } from './simulator-canvas/simulator-canvas.component';
 import { ProcessDetailComponent } from './process-detail/process-detail.component';
 import { ActionBarComponent } from './action-bar/action-bar.component';
+import { ProcessService } from './services/process.service';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ ProcessService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

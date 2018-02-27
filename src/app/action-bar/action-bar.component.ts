@@ -5,6 +5,7 @@ import { Scope } from '../classes/scope';
 import { Process } from '../classes/process';
 import { ProcessType } from '../classes/process-type';
 import { PROCESS_TYPES } from '../mock/process-type-mock';
+import { ProcessService } from '../services/process.service';
 
 @Component({
   selector: 'app-action-bar',
@@ -18,12 +19,12 @@ export class ActionBarComponent implements OnInit {
   types: ProcessType[];
   processes: Process[];
 
-  constructor() { }
+  constructor(private processService: ProcessService) { }
 
   ngOnInit() {
     this.state = ActionBarStateEnum.IDLE;
-    this.types = PROCESS_TYPES;
-    console.log(this.types);
+    this.processService.getProcessTypes()
+      .subscribe(processTypes => this.types = processTypes);
   }
 
   newElementBtn(): void {
