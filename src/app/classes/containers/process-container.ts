@@ -4,18 +4,27 @@ import { timer } from 'rxjs/observable/timer';
 import { Process } from '../process';
 import { MouseEventExtension } from '../extensions/mouse-event-extension';
 import { RelationshipContainer } from './relationship-container';
+import { Borders } from './container-borders';
 
 export class ProcessContainer extends createjs.Container {
     process: Process;
+    borders: Borders;
   
     constructor(process: Process) {
       super();
       this.process = process;
-      var bitmap = new createjs.Bitmap(this.process.image);
-      this.addChild(bitmap);
+      this.setBitmap(this.process.image);
       this.x = 20;
       this.y = 20;
       this.addEventHandlersToProcessContainer(this);
+      timer(100).subscribe(val => {
+        this.borders = new Borders(this);
+      });
+    }
+
+    setBitmap(path: string) {
+      var bitmap = new createjs.Bitmap(path);
+      this.addChild(bitmap);
     }
 
     addEventHandlersToProcessContainer(container: ProcessContainer): void {
