@@ -22,8 +22,9 @@ export class StageHandler {
   }
 
   newProcess(process: Process): void {
-    var container = new ProcessContainer(process);
+    var container = new ProcessContainer();
     this.stage.addChild(container);
+    container.start(process);
     
     timer(100).subscribe(val => {
       this.stage.update();

@@ -1,38 +1,47 @@
 import { RotatedLine } from "./rotated-line";
 import { ProcessContainer } from '../containers/process-container'
 import * as mathjs from 'mathjs';
+import { twoDVector } from "./two-d-vector";
+import * as createjs from 'createjs-module';
 
 export class ContainerBorderLine extends RotatedLine {
     side: string;
 
     constructor(side: string, parent: ProcessContainer) {
-        var start = [0, 0] as [number, number];
+        var start = new twoDVector([0, 0] as [number, number]);
         var length = 0;
         var rotation = 0;
         var width = parent.getBounds().width;
         var height = parent.getBounds().height;
 
         if(side.toLowerCase() == "top") {
-            start = [0, 0];
+            // start.x = 0;
+            // start.y = 0;
             length = width;
             rotation = 0;
         }
         else if(side.toLowerCase() == "right") {
-            start = [width, 0];
+            start.x = width;
+            // start.y = 0;
             length = height;
             rotation = mathjs.pi/2;
         }
         else if(side.toLowerCase() == "bottom") {
-            start = [width, height];
+            start.x = width;
             length = width;
+            start.y = height;
             rotation = mathjs.pi;
         }
         else if(side.toLowerCase() == "left") {
-            start = [0, height];
+            // start.x = 0;
+            start.y = height;
             length = height;
             rotation = 3*mathjs.pi/2;
         }
         super(start, length, rotation);
+        parent.addChild(this.shape);
         this.drawLine();
     }
+
+    
 }

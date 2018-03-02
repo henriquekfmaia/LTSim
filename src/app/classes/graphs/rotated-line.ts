@@ -2,7 +2,7 @@ import * as createjs from 'createjs-module';
 import * as mathjs from 'mathjs';
 import { twoDVector } from './two-d-vector';
 
-export class RotatedLine {
+export class RotatedLine extends createjs.Container {
     start: twoDVector;
     end: twoDVector;
     normal: twoDVector;
@@ -10,8 +10,9 @@ export class RotatedLine {
     rotation: number;
     shape: createjs.Shape;
 
-    constructor(start: [number, number], length: number, rotation: number) {
-        this.start = new twoDVector(start);
+    constructor(start: twoDVector, length: number, rotation: number) {
+        super();
+        this.start = start;
         this.rotation = rotation;
         this.length = length
         this.normal = this.getNormal(this.rotation);
@@ -20,10 +21,19 @@ export class RotatedLine {
     }
 
     drawLine(): void {
-        console.log('drawing from [' + this.start.x + ',' + this.start.y + ']');
-        console.log('drawing to [' + this.end.x + ',' + this.end.y + ']');
-        this.shape.graphics.beginStroke("black").moveTo(0, 0).lineTo(100, 100);
-        this.shape.graphics.beginStroke("black").moveTo(this.start.x, this.start.y).lineTo(this.end.x, this.end.y);
+        this.shape.graphics.beginStroke("black");
+        //                    .moveTo(this.start.x, this.start.y)
+        //                    .lineTo(this.end.x, this.end.y);
+        var w = this.end.x - this.start.x;
+        var h = this.end.y - this.start.y;
+        this.shape.graphics.rect(this.start.x, this.start.y, w, h);
+        // this.shape.graphics.drawRect(this.start.x, this.start.y, w, h);
+        this.shape.addEventListener("mouseover", function(a) {console.log(a)})
+        var x = (this.start.x + this.end.x)/2;
+        var y = (this.start.y + this.end.y)/2;
+        this.shape.graphics.beginStroke("black")
+                           .moveTo(x, y)
+                           .lineTo(x+10*this.normal.x, y+10*this.normal.y);
     }
 
     getNormal(rotation: number): twoDVector {

@@ -10,8 +10,11 @@ export class ProcessContainer extends createjs.Container {
     process: Process;
     borders: Borders;
   
-    constructor(process: Process) {
+    constructor() {
       super();
+    }
+
+    start(process: Process): void {
       this.process = process;
       this.setBitmap(this.process.image);
       this.x = 20;
@@ -21,7 +24,7 @@ export class ProcessContainer extends createjs.Container {
         this.borders = new Borders(this);
       });
     }
-
+    
     setBitmap(path: string) {
       var bitmap = new createjs.Bitmap(path);
       this.addChild(bitmap);
