@@ -4,10 +4,12 @@ import * as mathjs from 'mathjs';
 import { twoDVector } from "./two-d-vector";
 import * as createjs from 'createjs-module';
 
-export class ContainerBorderLine extends RotatedLine {
+export class ContainerBorderLine extends createjs.Container {
     side: string;
+    properties: RotatedLine;
 
     constructor(side: string, parent: ProcessContainer) {
+        super();
         var start = new twoDVector([0, 0] as [number, number]);
         var length = 0;
         var rotation = 0;
@@ -38,9 +40,10 @@ export class ContainerBorderLine extends RotatedLine {
             length = height;
             rotation = 3*mathjs.pi/2;
         }
-        super(start, length, rotation);
-        parent.addChild(this.shape);
-        this.drawLine();
+        this.properties = new RotatedLine(start, length, rotation);
+        parent.addChild(this);
+        this.addChild(this.properties.shape);
+        this.properties.drawLine();
     }
 
     
