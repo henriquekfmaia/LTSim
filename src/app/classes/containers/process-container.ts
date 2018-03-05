@@ -3,8 +3,9 @@ import { timer } from 'rxjs/observable/timer';
 
 import { Process } from '../process';
 import { MouseEventExtension } from '../extensions/mouse-event-extension';
-import { RelationshipContainer } from './relationship-container';
 import { Borders } from './container-borders';
+import { StageExtension } from '../extensions/stage-extension';
+import { Relationship } from '../relationship';
 
 export class ProcessContainer extends createjs.Container {
     process: Process;
@@ -30,14 +31,28 @@ export class ProcessContainer extends createjs.Container {
       this.addChild(bitmap);
     }
 
+    addInputRelationship(sourceContainer: ProcessContainer): void {
+      var stage = this.stage as StageExtension;
+      var relationship = new Relationship(sourceContainer, this, stage);
+    }
+
     addEventHandlersToProcessContainer(container: ProcessContainer): void {
         container.on("mousedown", function (evt: MouseEventExtension) {
-          this.stage.selectedContainer = this;
-          this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
+          if(evt.nativeEvent.button == 0 && this.stage.creatingRelationship == false) {
+            this.stage.selectedContainer = this;
+            this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
+          }
+          else if(evt.nativeEvent.button == 2) {
+            console.log(evt);
+          }
         });
     
         container.on("mouseup", function (evt) {
           this.offset = undefined;
+        });
+
+        container.on("contextmenu", function (evt) {
+          console.log(evt);
         });
     
         // the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
@@ -49,14 +64,20 @@ export class ProcessContainer extends createjs.Container {
           }
         });
     
-        container.on("dblclick", function (evt) {
+        container.on("dblclick", function (evt: MouseEventExtension) {
+          if(this.stage.creatingRelationship == false) {
+            this.stage.selectedContainer = this;
+            this.stage.creatingRelationship = true;
+          }
+          else if(this.stage.creatingRelationship == true) {
+            this.addInputRelationship(this.stage.selectedContainer);
+            // this.stage.selectedContainer = null;
+            this.stage.creatingRelationship = false;
+          }
           if(this.stage.boo == false) {
-            this.stage.startRel = { x: this.x, y: this.y };
             this.stage.boo = true;
           }
           else {
-            this.stage.endRel = { x: this.x, y: this.y };
-            this.stage.addChild(new RelationshipContainer(this.stage.startRel.x, this.stage.startRel.y, this.stage.endRel.x, this.stage.endRel.y))
             this.stage.boo = false;
             timer(100).subscribe(val => {
               this.stage.update();

@@ -1,4 +1,4 @@
-import { RotatedLine } from "./rotated-line";
+import { RotatedLineProperties } from "./line-properties/rotated-line";
 import { ProcessContainer } from '../containers/process-container'
 import * as mathjs from 'mathjs';
 import { twoDVector } from "./two-d-vector";
@@ -6,7 +6,7 @@ import * as createjs from 'createjs-module';
 
 export class ContainerBorderLine extends createjs.Container {
     side: string;
-    properties: RotatedLine;
+    properties: RotatedLineProperties;
 
     constructor(side: string, parent: ProcessContainer) {
         super();
@@ -40,7 +40,7 @@ export class ContainerBorderLine extends createjs.Container {
             length = height;
             rotation = 3*mathjs.pi/2;
         }
-        this.properties = new RotatedLine(start, length, rotation);
+        this.properties = new RotatedLineProperties(start, length, rotation);
         parent.addChild(this);
         this.addChild(this.properties.shape);
         this.properties.drawLine();
