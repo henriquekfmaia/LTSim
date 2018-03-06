@@ -12,9 +12,9 @@ export class WfLineProperties extends createjs.Container {
     }
 
     drawLine(): void {
-        this.shape.graphics.beginStroke("black")
+        this.shape.graphics.clear()
+                           .beginStroke("black")
                            .moveTo(this.start.x, this.start.y)
                            .lineTo(this.end.x, this.end.y);
     }
-
 }

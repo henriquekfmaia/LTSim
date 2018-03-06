@@ -20,8 +20,7 @@ export class Relationship {
     }
 
     getPath(stage: StageExtension): void {
-        var line = new RelationshipLineProperties(this.source.x, this.source.y, this.destination.x, this.destination.y);
-        stage.addChild(line);
-        line.drawLine();
+        var line = new RelationshipLineProperties(this.source, this.destination);
+        stage.addChild(line.shape);
     }
 }

@@ -13,5 +13,7 @@ export class Process {
     this.name = name;
     this.processTypeId = processTypeId;
     this.image = image;
+    this.input = [];
+    this.output = [];
   }
 }
