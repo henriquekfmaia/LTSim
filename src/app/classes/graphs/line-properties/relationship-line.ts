@@ -1,37 +1,29 @@
 import * as createjs from 'createjs-module';
 import { WfLineProperties } from "./workflow-line";
 import { twoDVector } from "../two-d-vector";
+import { EventEmitter } from 'protractor';
+import { ContainerExtension } from '../../extensions/container-extension';
 
 export class RelationshipLineProperties extends WfLineProperties {
-    startContainer: createjs.Container;
-    endContainer: createjs.Container;
+    startContainer: ContainerExtension;
+    endContainer: ContainerExtension;
 
 
-    constructor(startContainer: createjs.Container, endContainer: createjs.Container) {
+    constructor(startContainer: ContainerExtension, endContainer: ContainerExtension) {
         super();
         this.startContainer = startContainer;
         this.endContainer = endContainer;
-        this.addEventHandlersToContainer(this);
-        this.addEventListener("tick", this.onTick);
-        // createjs.Ticker
-        // http://jsfiddle.net/lannymcnie/6rh7P/
+        // this.forceTickerHandle();
     }
 
-    addEventHandlersToContainer(container: RelationshipLineProperties): void {
-        container.on("tick", function(evt) {
-            container.start = new twoDVector([container.startContainer.x, container.startContainer.y])
-            container.end = new twoDVector([container.endContainer.x, container.endContainer.y])
-            container.drawLine();
-            console.log('yay');
+    forceTickerHandle(): void {
+        var container = this;
+        createjs.Ticker.framerate = 60;
+        createjs.Ticker.addEventListener('tick', function(evt) {
+            container.startContainer.getOffset();
+            // container.start = new twoDVector([container.startContainer.getAbs().x, container.startContainer.getAbs().y])
+            // container.end = new twoDVector([container.endContainer.getAbs().x, container.endContainer.getAbs().y])
+            // container.drawLine();
         });
-    }
-
-    onTick(evt): void {
-        console.log(this);
-        // console.log(evt);
-    }
-
-    doStuff(): void {
-        // console.log(this);
     }
 }

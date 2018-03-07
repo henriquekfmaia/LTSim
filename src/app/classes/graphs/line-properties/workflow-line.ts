@@ -1,7 +1,7 @@
 import * as createjs from 'createjs-module';
 import { twoDVector } from '../two-d-vector';
-
-export class WfLineProperties extends createjs.Container {
+import { ContainerExtension } from '../../extensions/container-extension';
+export class WfLineProperties extends ContainerExtension {
     start: twoDVector;
     end: twoDVector;
     shape: createjs.Shape;

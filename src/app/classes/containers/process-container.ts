@@ -6,8 +6,10 @@ import { MouseEventExtension } from '../extensions/mouse-event-extension';
 import { Borders } from './container-borders';
 import { StageExtension } from '../extensions/stage-extension';
 import { Relationship } from '../relationship';
+import { BorderPoint } from '../graphs/point/border-point';
+import { ContainerExtension } from '../extensions/container-extension';
 
-export class ProcessContainer extends createjs.Container {
+export class ProcessContainer extends ContainerExtension {
     process: Process;
     borders: Borders;
   
@@ -36,6 +38,12 @@ export class ProcessContainer extends createjs.Container {
       var relationship = new Relationship(sourceContainer, this, stage);
     }
 
+    createPoint(): BorderPoint {
+      var point = new BorderPoint();
+      this.addChild(point.shape);
+      return point;
+    }
+
     addEventHandlersToProcessContainer(container: ProcessContainer): void {
         container.on("mousedown", function (evt: MouseEventExtension) {
           if(evt.nativeEvent.button == 0 && this.stage.creatingRelationship == false) {
@@ -51,10 +59,6 @@ export class ProcessContainer extends createjs.Container {
           this.offset = undefined;
         });
 
-        container.on("contextmenu", function (evt) {
-          console.log(evt);
-        });
-    
         // the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
         container.on("pressmove", function (evt: MouseEventExtension) {
           if(this.offset){
@@ -85,5 +89,4 @@ export class ProcessContainer extends createjs.Container {
           }
         });
       }
-    
   }

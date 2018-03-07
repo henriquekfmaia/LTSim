@@ -1,10 +1,11 @@
 import * as createjs from 'createjs-module';
 import { Process } from '../process';
+import { ContainerExtension } from './container-extension';
 
 
 
 export class StageExtension extends createjs.Stage {
-  selectedContainer: createjs.Container;
+  selectedContainer: ContainerExtension;
   boo: boolean;
   creatingRelationship: boolean;
 

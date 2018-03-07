@@ -3,7 +3,7 @@
 // export class ProcessImage {
 //   id: number;
 //   name: string;
-//   container: createjs.Container;
+//   container: ContainerExtension;
 //   bitmap: createjs.Bitmap;
 
 //   constructor(image: string) {

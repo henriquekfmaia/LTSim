@@ -3,8 +3,9 @@ import { ProcessContainer } from '../containers/process-container'
 import * as mathjs from 'mathjs';
 import { twoDVector } from "./two-d-vector";
 import * as createjs from 'createjs-module';
+import { ContainerExtension } from '../extensions/container-extension';
 
-export class ContainerBorderLine extends createjs.Container {
+export class ContainerBorderLine extends ContainerExtension {
     side: string;
     properties: RotatedLineProperties;
 
