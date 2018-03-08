@@ -12,16 +12,20 @@ export class ContainerExtension extends createjs.Container {
 
     getOffset(): twoDVector {
         if(this.parent && this.parent != null) {
-            // console.log(this.parent);
             var parent = this.parent as ContainerExtension;
             if(parent._isContainerExtension) {
                 this._offset = parent.getAbs();
+                return this._offset;
+            }
+            else {
+                this._offset = new twoDVector([0, 0]);
+                return this._offset;
             }
         }
         else {
             this._offset = new twoDVector([0, 0]);
+            return this._offset;
         }
-        return this._offset;
     }
 
     getAbs(): twoDVector {

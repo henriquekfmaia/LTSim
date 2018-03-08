@@ -40,13 +40,16 @@ export class ProcessContainer extends ContainerExtension {
 
     createPoint(): BorderPoint {
       var point = new BorderPoint();
-      this.addChild(point.shape);
+      this.addChild(point);
+      // this.addChild(point.shape);
       return point;
     }
 
     addEventHandlersToProcessContainer(container: ProcessContainer): void {
         container.on("mousedown", function (evt: MouseEventExtension) {
-          if(evt.nativeEvent.button == 0 && this.stage.creatingRelationship == false) {
+          if(evt.nativeEvent.button == 0
+          && this.stage.creatingRelationship == false
+          && evt.target.parent == container) {
             this.stage.selectedContainer = this;
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
           }
@@ -55,13 +58,13 @@ export class ProcessContainer extends ContainerExtension {
           }
         });
     
-        container.on("mouseup", function (evt) {
+        container.on("mouseup", function (evt: MouseEventExtension) {
           this.offset = undefined;
         });
 
         // the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
         container.on("pressmove", function (evt: MouseEventExtension) {
-          if(this.offset){
+          if(this.offset && evt.target.parent == container){
               this.x = evt.stageX + this.offset.x;
               this.y = evt.stageY + this.offset.y;
               this.stage.update();

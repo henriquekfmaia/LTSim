@@ -1,6 +1,7 @@
 import { Point } from './point';
 import { MouseEventExtension } from '../../extensions/mouse-event-extension';
-
+import { TargetLocator } from 'selenium-webdriver';
+import * as mathjs from 'mathjs';
 
 export class BorderPoint extends Point {
 
@@ -16,6 +17,7 @@ export class BorderPoint extends Point {
     }
 
     createShape(): void {
+        this.addChild(this.shape);
         // this.shape.visible = false;
         this.shape.graphics.beginStroke('black')
                            .beginFill('white')
@@ -23,30 +25,44 @@ export class BorderPoint extends Point {
     }
 
     addEventHandlersToContainer(container: BorderPoint): void {
-        container.on('mouseover', function(evt) {
-            this.shape.visible = true;
-            console.log('over');
-        });
-        
-        container.on('mouseout', function(evt) {
-            this.shape.visible = false;
-            console.log('out');
-        });
-        
         container.on('mousedown', function(evt: MouseEventExtension) {
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
-            console.log('down');
+            if(evt.target.parent == container) {
+                // console.log(evt);
+            }
         });
         
-        container.on('mouseup', function(evt) {
+        container.on('mouseup', function(evt: MouseEventExtension) {
             this.offset = undefined;
+            if(evt.target.parent == container) {
+                // console.log(evt);
+            }
         });
         
-        container.on('mousemove', function(evt: MouseEventExtension) {
+        container.on('pressmove', function(evt: MouseEventExtension) {
             if(this.offset){
-                console.log('move');
                 this.x = evt.stageX + this.offset.x;
                 this.y = evt.stageY + this.offset.y;
+                var height = container.parent.getBounds().height;
+                var width = container.parent.getBounds().width;
+                var top = mathjs.abs(this.y);
+                var bottom = mathjs.abs(this.y - height);
+                var left = mathjs.abs(this.x);
+                var right = mathjs.abs(this.x - width);
+                var min = mathjs.min([top, bottom, left, right]);
+
+                if(min == top || this.y < 0) {
+                    this.y = 0;
+                }
+                else if(min == bottom || this.y > height) {
+                    this.y = height;
+                }
+                if(min == left || this.x < 0) {
+                    this.x = 0;
+                }
+                else if(min == right || this.x > width) {
+                    this.x = container.parent.getBounds().width;
+                }
                 this.stage.update();
             }
         });

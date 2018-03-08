@@ -13,17 +13,16 @@ export class RelationshipLineProperties extends WfLineProperties {
         super();
         this.startContainer = startContainer;
         this.endContainer = endContainer;
-        // this.forceTickerHandle();
+        this.forceTickerHandle();
     }
 
     forceTickerHandle(): void {
         var container = this;
         createjs.Ticker.framerate = 60;
         createjs.Ticker.addEventListener('tick', function(evt) {
-            container.startContainer.getOffset();
-            // container.start = new twoDVector([container.startContainer.getAbs().x, container.startContainer.getAbs().y])
-            // container.end = new twoDVector([container.endContainer.getAbs().x, container.endContainer.getAbs().y])
-            // container.drawLine();
+            container.start = new twoDVector([container.startContainer.getAbs().x, container.startContainer.getAbs().y])
+            container.end = new twoDVector([container.endContainer.getAbs().x, container.endContainer.getAbs().y])
+            container.drawLine();
         });
     }
 }
