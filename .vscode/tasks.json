@@ -1,0 +1,25 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Prod",
+            "type": "shell",
+            "command": "ng build --prod",
+            "problemMatcher": []
+        },
+        {
+            "label": "Copy to Release folder",
+            "type": "shell",
+            "command": "cp -r -f dist/* release_git/",
+            "problemMatcher": []
+        },
+        {
+            "label": "Go to release",
+            "type": "shell",
+            "command": "cd release_git/",
+            "problemMatcher": []
+        }
+    ]
+}

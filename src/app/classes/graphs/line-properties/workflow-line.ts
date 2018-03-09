@@ -16,6 +16,6 @@ export class WfLineProperties extends ContainerExtension {
                            .beginStroke("black")
                            .moveTo(this.start.x, this.start.y)
                            .lineTo(this.end.x, this.end.y);
-        this.stage.update();
+        this.parent.stage.update();
     }
 }
