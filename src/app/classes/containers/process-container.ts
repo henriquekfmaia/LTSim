@@ -23,7 +23,7 @@ export class ProcessContainer extends ContainerExtension {
       this.x = 20;
       this.y = 20;
       this.addEventHandlersToProcessContainer(this);
-      timer(100).subscribe(val => {
+      timer(300).subscribe(val => {
         this.borders = new Borders(this);
       });
     }

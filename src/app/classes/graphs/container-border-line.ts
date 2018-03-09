@@ -3,6 +3,7 @@ import { ProcessContainer } from '../containers/process-container'
 import * as mathjs from 'mathjs';
 import { twoDVector } from "./two-d-vector";
 import * as createjs from 'createjs-module';
+import { timer } from 'rxjs/observable/timer';
 import { ContainerExtension } from '../extensions/container-extension';
 
 export class ContainerBorderLine extends ContainerExtension {
@@ -14,8 +15,14 @@ export class ContainerBorderLine extends ContainerExtension {
         var start = new twoDVector([0, 0] as [number, number]);
         var length = 0;
         var rotation = 0;
-        var width = parent.getBounds().width;
-        var height = parent.getBounds().height;
+        console.log(parent.getBounds());
+        // timer(200).subscribe(val => {
+        //     console.log(parent.getBounds());
+        //   });
+        var width = 40;
+        var height = 40;
+        // var width = parent.getBounds().width;
+        // var height = parent.getBounds().height;
 
         if(side.toLowerCase() == "top") {
             // start.x = 0;
