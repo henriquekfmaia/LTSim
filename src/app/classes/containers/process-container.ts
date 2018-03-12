@@ -23,9 +23,7 @@ export class ProcessContainer extends ContainerExtension {
       this.x = 20;
       this.y = 20;
       this.addEventHandlersToProcessContainer(this);
-      timer(300).subscribe(val => {
-        this.borders = new Borders(this);
-      });
+      this.createBorders();
     }
     
     setBitmap(path: string) {
@@ -38,11 +36,23 @@ export class ProcessContainer extends ContainerExtension {
       var relationship = new Relationship(sourceContainer, this, stage);
     }
 
-    createPoint(): BorderPoint {
-      var point = new BorderPoint();
+    createPoint(color = 'white'): BorderPoint {
+      var point = new BorderPoint(color);
       this.addChild(point);
       // this.addChild(point.shape);
       return point;
+    }
+
+    createBorders(): void {
+      var bounds = this.getBounds();
+      if(bounds && bounds != null) {
+        this.borders = new Borders(this);
+      }
+      else {
+        timer(50).subscribe(val => {
+          this.createBorders()
+        });
+      }
     }
 
     addEventHandlersToProcessContainer(container: ProcessContainer): void {
@@ -91,5 +101,5 @@ export class ProcessContainer extends ContainerExtension {
             });
           }
         });
-      }
-  }
+    }
+}

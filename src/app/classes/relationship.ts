@@ -23,8 +23,8 @@ export class Relationship {
     }
 
     getPath(stage: StageExtension): void {
-        var sourcePoint = this.source.createPoint();
-        var destinationPoint = this.destination.createPoint();
+        var sourcePoint = this.source.createPoint('red');
+        var destinationPoint = this.destination.createPoint('LawnGreen');
         var line = new RelationshipLineProperties(sourcePoint, destinationPoint);
         // var line = new RelationshipLineProperties(this.source, this.destination);
         stage.addChild(line.shape);

@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SimulatorInterfaceComponent } from './simulator-interface/simulator-interface.component';
 
 const routes: Routes = [
-  { path: 'simulator', component: SimulatorInterfaceComponent },
-  { path: '', redirectTo: '/simulator', pathMatch: 'full' }
+  { path: '', component: SimulatorInterfaceComponent },
+  // { path: '', redirectTo: '/simulator', pathMatch: 'full' }
 ];
 
 @NgModule({

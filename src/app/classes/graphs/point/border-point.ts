@@ -6,12 +6,15 @@ import * as mathjs from 'mathjs';
 export class BorderPoint extends Point {
 
     radius: number;
+    color: string;
 
-    constructor() {
+    constructor(color = 'white') {
         super();
         this.x = 0;
         this.y = 0;
         this.radius = 4;
+        console.log(color);
+        this.color = color;
         this.createShape();
         this.addEventHandlersToContainer(this);
     }
@@ -20,7 +23,7 @@ export class BorderPoint extends Point {
         this.addChild(this.shape);
         // this.shape.visible = false;
         this.shape.graphics.beginStroke('black')
-                           .beginFill('white')
+                           .beginFill(this.color)
                            .drawCircle(this.x, this.y, this.radius);
     }
 
