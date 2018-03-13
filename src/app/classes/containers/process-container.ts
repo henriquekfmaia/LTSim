@@ -19,13 +19,27 @@ export class ProcessContainer extends ContainerExtension {
 
     start(process: Process): void {
       this.process = process;
-      this.setBitmap(this.process.image);
+      this.setBitmap(this.process.imagePath);
       this.x = 20;
       this.y = 20;
       this.addEventHandlersToProcessContainer(this);
       this.createBorders();
     }
     
+    setBitmap_a(imageBlob: Blob) {
+      var filename = 'test.png';
+      var objectUrl = URL.createObjectURL(imageBlob);
+      var a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+
+      a.href = objectUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();        
+
+      document.body.removeChild(a);
+      URL.revokeObjectURL(objectUrl);
+    }
+
     setBitmap(path: string) {
       var bitmap = new createjs.Bitmap(path);
       this.addChild(bitmap);
