@@ -21,10 +21,6 @@ export class StageHandler {
     this.stage.mouseMoveOutside = true; // keep tracking the mouse even when it leaves the canvas
   }
 
-  tick(ext): void {
-    console.log('tick!');
-  }
-
   newProcess(process: Process): void {
     var container = new ProcessContainer();
     this.stage.addChild(container);

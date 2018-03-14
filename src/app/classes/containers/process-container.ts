@@ -27,17 +27,10 @@ export class ProcessContainer extends ContainerExtension {
     }
     
     setBitmap_a(imageBlob: Blob) {
-      var filename = 'test.png';
-      var objectUrl = URL.createObjectURL(imageBlob);
-      var a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
-
-      a.href = objectUrl;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();        
-
-      document.body.removeChild(a);
-      URL.revokeObjectURL(objectUrl);
+      var a = createImageBitmap(imageBlob);
+      console.log(a);
+      var bitmap = new createjs.Bitmap(a);
+      this.addChild(bitmap);
     }
 
     setBitmap(path: string) {

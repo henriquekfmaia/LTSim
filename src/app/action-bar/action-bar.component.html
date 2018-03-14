@@ -1,22 +1,21 @@
 <nav class="navbar navbar-default" style="text-align:center;">
     <div class="col-12" *ngIf="state === 0">
-        <button type="button" class="btn btn-primary" (click)="newElementBtn()" style="height: 50px; width: 30%;">
-            New Element
-        </button>
+        <button type="button" class="btn btn-primary" (click)="newElementBtn()" style="height: 50px; width: 30%;">New Element</button>
         <button type="button" class="btn btn-warning" (click)="deleteElement()" style="height: 50px; width: 30%;" >Remove Element</button>
+        <button type="button" class="btn btn-danger" (click)="beginSimulation()" style="height: 50px; width: 30%;">Simulate</button>
     </div>
     <div class="col-12" *ngIf="state === 1">
-        <div *ngFor="let type of types">
+        <span *ngFor="let type of types">
             <button type="button" class="btn btn-primary" (click)="typeBtn(type)" style="height: 50px;">
                 {{ type.name }}
             </button>
-        </div>
+        </span>
     </div>
     <div class="col-12" *ngIf="state === 2">
-        <div *ngFor="let process of processes">
+        <span *ngFor="let process of processes">
             <button type="button" class="btn btn-primary" (click)="addProcessBtn(process)" style="height: 50px;">
                 {{ process.name }}
             </button>
-        </div>
+        </span>
     </div>
 </nav>

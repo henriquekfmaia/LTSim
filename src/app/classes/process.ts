@@ -5,9 +5,8 @@ export class Process {
   name: string;
   processTypeId: number;
   imagePath: string;
-  imageByteString: ByteString;
-  imageArrayBuffer: ArrayBuffer;
-  imageBlob: Blob;
+  // imageHex: string;
+  // imageBlob: Blob;
   input: Process[];
   inputLimit: number;
   output: Process[];
@@ -18,27 +17,13 @@ export class Process {
     this.name = process.name;
     this.processTypeId = process.processTypeId;
     this.imagePath = process.imagePath;
-    this.imageByteString = process.imageByteString;
-    this.imageArrayBuffer = this.GetArrayBufferFromString(btoa(process.imageByteString));
-    var a = new Uint32Array(this.imageArrayBuffer);
-    console.log(a);
-    this.imageBlob = new Blob([a]);
-    console.log(this.imageBlob);
+    // this.imageHex = process.imageHex;
+    // this.imageBlob = new Blob([this.hexStringToByte(this.imageHex)], new MyBlobPropertyBag('image/png'));
     this.input = [];
     this.inputLimit = 2;
     this.output = [];
     this.outputLimit = 2;
   }
-  // constructor(id: number, name: string, processTypeId: number, imagePath: string) {
-  //   this.id = id;
-  //   this.name = name;
-  //   this.processTypeId = processTypeId;
-  //   this.imagePath = imagePath;
-  //   this.input = [];
-  //   this.inputLimit = 2;
-  //   this.output = [];
-  //   this.outputLimit = 2;
-  // }
 
   addInput(process: Process): void {
     if(this.inputLimit > this.input.length)
@@ -54,12 +39,18 @@ export class Process {
     }
   }
 
-  GetArrayBufferFromString(str: string): ArrayBuffer {
-    var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
-    var bufView = new Uint16Array(buf);
-    for (var i=0, strLen=str.length; i < strLen; i++) {
-      bufView[i] = str.charCodeAt(i);
+  hexStringToByte(str: string): Uint8Array {
+    if (!str) {
+      return new Uint8Array(0);
     }
-    return buf;
+    
+    var a = [];
+    for (var i = 0, len = str.length; i < len; i+=2) {
+      a.push(parseInt(str.substr(i,2),16));
+    }
+    
+    return new Uint8Array(a);
   }
+
+  
 }

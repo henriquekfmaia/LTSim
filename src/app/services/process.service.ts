@@ -16,10 +16,6 @@ export class ProcessService {
   constructor(private http: HttpClient) { }
   // constructor() { }
   
-  test(): void {
-    console.log('AAA');
-  }
-
   getProcessTypes(): Observable<ProcessType[]> {
     var endpoint = this.url + 'get_process_types';
     return this.http.get<ProcessType[]>(endpoint);

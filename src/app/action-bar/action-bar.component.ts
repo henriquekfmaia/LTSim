@@ -29,7 +29,6 @@ export class ActionBarComponent implements OnInit {
 
   newElementBtn(): void {
     this.state = ActionBarStateEnum.TYPE;
-    // console.log(this.types);
   }
 
   typeBtn(type: ProcessType): void {
@@ -40,13 +39,14 @@ export class ActionBarComponent implements OnInit {
   addProcessBtn(processContract: Process): void {
     this.state = ActionBarStateEnum.IDLE;
     var process = new Process(processContract);
-    // var process = new Process(processContract.id, processContract.name, 
-    //   processContract.processTypeId, processContract.imagePath);
-    console.log(process);
     this.scope.stageHandler.newProcess(process);
   }
 
   deleteElement(): void {
     this.scope.stageHandler.deleteElement();
+  }
+
+  beginSimulation(): void {
+    console.log(this.scope.stageHandler.stage);
   }
 }
