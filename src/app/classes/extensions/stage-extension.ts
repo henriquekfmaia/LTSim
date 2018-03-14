@@ -21,4 +21,38 @@ export class StageExtension extends createjs.Stage {
     this.processes = [];
     this.relationships = [];
   }
+
+  addProcess(process: Process): void {
+    process.stageId = this.getProcessStageId(-1);
+    console.log(process.stageId);
+    this.processes.push(process);
+  }
+
+  removeProcess(process: Process): void {
+    var index = this.processes.indexOf(process);
+    this.processes.splice(index, 1);
+  }
+
+  getProcessStageId(feed: number): number {
+    if(feed > 10){return 10;}
+    if(feed == -1) {
+      return this.getProcessStageId(this.processes.length);
+    }
+    else if (feed > 0 && (
+      this.processes.length == 0 || 
+      this.processes.every(function(process, index, array) {
+        if(process.stageId != feed) { return true; }
+        else { return false; }
+      }))) {
+        return feed;
+    }
+    else {
+      return this.getProcessStageId(feed + 1);
+    }
+  }
+
+  checkStageId(item, index, array, feed): boolean {
+    if(item.stageId != feed) { return true; }
+    else { return false; }
+  }
 }

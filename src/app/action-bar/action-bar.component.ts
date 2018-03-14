@@ -47,6 +47,6 @@ export class ActionBarComponent implements OnInit {
   }
 
   beginSimulation(): void {
-    console.log(this.scope.stageHandler.stage);
+    console.log(this.scope.stageHandler.stage.processes);
   }
 }

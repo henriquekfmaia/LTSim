@@ -25,7 +25,7 @@ export class StageHandler {
     var container = new ProcessContainer();
     this.stage.addChild(container);
     container.start(process);
-    
+    this.stage.addProcess(process);
     timer(100).subscribe(val => {
       this.stage.update();
     });
@@ -34,6 +34,7 @@ export class StageHandler {
 
   deleteElement(): void {
     this.stage.removeChild(this.stage.selectedContainer);
+    this.stage.removeProcess(this.stage.selectedContainer.process);
     this.stage.selectedContainer = null;
     timer(100).subscribe(val => {
       this.stage.update();

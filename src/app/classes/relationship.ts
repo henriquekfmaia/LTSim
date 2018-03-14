@@ -11,7 +11,6 @@ export class Relationship {
 
     constructor(source: ProcessContainer, destination: ProcessContainer, stage: StageExtension) {
         this.setInputOutput(source, destination);
-        
         this.getPath(stage);
     }
     

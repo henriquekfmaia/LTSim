@@ -1,4 +1,5 @@
 import { ProcessDetailComponent } from "../process-detail/process-detail.component";
+import { StageExtension } from "./extensions/stage-extension";
 
 export class Process {
   id: number;
@@ -11,9 +12,10 @@ export class Process {
   inputLimit: number;
   output: Process[];
   outputLimit: number;
+  stageId: number;
 
   constructor(process: Process) {
-    this.id = process.id;
+    this.id = process.id
     this.name = process.name;
     this.processTypeId = process.processTypeId;
     this.imagePath = process.imagePath;
