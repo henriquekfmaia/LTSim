@@ -1,5 +1,6 @@
 import { ProcessDetailComponent } from "../process-detail/process-detail.component";
 import { StageExtension } from "./extensions/stage-extension";
+import { Relationship } from "./relationship";
 
 export class Process {
   id: number;
@@ -8,9 +9,9 @@ export class Process {
   imagePath: string;
   // imageHex: string;
   // imageBlob: Blob;
-  input: Process[];
+  input: Relationship[];
   inputLimit: number;
-  output: Process[];
+  output: Relationship[];
   outputLimit: number;
   stageId: number;
 
@@ -22,22 +23,44 @@ export class Process {
     // this.imageHex = process.imageHex;
     // this.imageBlob = new Blob([this.hexStringToByte(this.imageHex)], new MyBlobPropertyBag('image/png'));
     this.input = [];
-    this.inputLimit = 2;
+    this.inputLimit = process.inputLimit;
     this.output = [];
-    this.outputLimit = 2;
+    this.outputLimit = process.outputLimit;
   }
 
-  addInput(process: Process): void {
-    if(this.inputLimit > this.input.length)
-    {
-      this.input.push(process);
+  addInput(relationship: Relationship): void {
+    if(this.checkInputLimit()) {
+      this.input.push(relationship);
     }
   }
 
-  addOutput(process: Process): void {
-    if(this.outputLimit > this.output.length)
-    {
-      this.output.push(process);
+  addOutput(relationship: Relationship): void {
+    if(this.checkOutputLimit()) {
+      this.output.push(relationship);
+    }
+  }
+
+  checkInputLimit(): Boolean {
+    if(this.inputLimit == -1) {
+      return true;
+    }
+    else if(this.input.length < this.inputLimit) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  checkOutputLimit(): Boolean {
+    if(this.outputLimit == -1) {
+      return true;
+    }
+    else if(this.output.length < this.outputLimit) {
+      return true;
+    }
+    else {
+      return false;
     }
   }
 

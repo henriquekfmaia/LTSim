@@ -23,8 +23,7 @@ export class StageExtension extends createjs.Stage {
   }
 
   addProcess(process: Process): void {
-    process.stageId = this.getProcessStageId(-1);
-    console.log(process.stageId);
+    process.stageId = this.getNextIdFromArray(-1, this.processes);
     this.processes.push(process);
   }
 
@@ -32,6 +31,37 @@ export class StageExtension extends createjs.Stage {
     var index = this.processes.indexOf(process);
     this.processes.splice(index, 1);
   }
+
+  addRelationship(relationship: Relationship): void {
+    relationship.stageId = this.getNextIdFromArray(-1, this.relationships);
+    this.relationships.push(relationship);
+  }
+
+  removeRelationship(relationship: Relationship): void {
+    var index = this.relationships.indexOf(relationship);
+    this.relationships.splice(index, 1);
+  }
+
+  getNextIdFromArray(feed: number, array: any[]): number {
+    {
+      if(feed > 10){return 10;}
+      if(feed == -1) {
+        return this.getNextIdFromArray(array.length, array);
+      }
+      else if (feed > 0 && (
+        array.length == 0 || 
+        array.every(function(item, index, array) {
+          if(item.stageId != feed) { return true; }
+          else { return false; }
+        }))) {
+          return feed;
+      }
+      else {
+        return this.getNextIdFromArray(feed + 1, array);
+      }
+    }
+  }
+
 
   getProcessStageId(feed: number): number {
     if(feed > 10){return 10;}

@@ -41,6 +41,12 @@ export class ProcessContainer extends ContainerExtension {
     addInputRelationship(sourceContainer: ProcessContainer): void {
       var stage = this.stage as StageExtension;
       var relationship = new Relationship(sourceContainer, this, stage);
+      if(relationship.isRelationshipValid){
+        stage.addRelationship(relationship);
+      }
+      else {
+        relationship = null;
+      }
     }
 
     createPoint(color = 'white'): BorderPoint {

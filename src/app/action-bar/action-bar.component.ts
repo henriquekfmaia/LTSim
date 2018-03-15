@@ -6,6 +6,7 @@ import { Process } from '../classes/process';
 import { ProcessType } from '../classes/process-type';
 import { PROCESS_TYPES } from '../mock/process-type-mock';
 import { ProcessService } from '../services/process.service';
+import { SimulatorService } from '../services/simulator.service';
 
 @Component({
   selector: 'app-action-bar',
@@ -19,7 +20,7 @@ export class ActionBarComponent implements OnInit {
   types: ProcessType[];
   processes: Process[];
 
-  constructor(private processService: ProcessService) { }
+  constructor(private processService: ProcessService, private simulatorService: SimulatorService) { }
 
   ngOnInit() {
     this.state = ActionBarStateEnum.IDLE;
@@ -47,6 +48,7 @@ export class ActionBarComponent implements OnInit {
   }
 
   beginSimulation(): void {
-    console.log(this.scope.stageHandler.stage.processes);
+    this.simulatorService.simulate(this.scope.stageHandler.stage.processes, 
+                                   this.scope.stageHandler.stage.relationships);
   }
 }

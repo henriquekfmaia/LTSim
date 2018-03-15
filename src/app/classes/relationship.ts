@@ -5,25 +5,36 @@ import { StageExtension } from './extensions/stage-extension';
 import { StageHandler } from './stage-handler';
 
 export class Relationship {
-    source: ProcessContainer;
-    destination: ProcessContainer;
+    sourceId: number;
+    destinationId: number;
     path: RelationshipLineProperties[];
+    stageId: number;
+    isRelationshipValid: Boolean;
+    flow: number[];
 
     constructor(source: ProcessContainer, destination: ProcessContainer, stage: StageExtension) {
-        this.setInputOutput(source, destination);
-        this.getPath(stage);
+        this.isRelationshipValid = this.setInputOutput(source, destination);
+        if(this.isRelationshipValid) {
+            this.getPath(source, destination, stage);
+        }
     }
     
-    setInputOutput(source: ProcessContainer, destination: ProcessContainer): void {
-        this.source = source;
-        this.destination = destination;
-        this.source.process.addOutput(this.destination.process);
-        this.destination.process.addInput(this.source.process);
+    setInputOutput(source: ProcessContainer, destination: ProcessContainer): Boolean {
+        this.sourceId = source.process.stageId;
+        this.destinationId = destination.process.stageId;
+        if(source.process.checkOutputLimit() && destination.process.checkInputLimit()) {
+            source.process.addOutput(this);
+            destination.process.addInput(this);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
-    getPath(stage: StageExtension): void {
-        var sourcePoint = this.source.createPoint('red');
-        var destinationPoint = this.destination.createPoint('LawnGreen');
+    getPath(source: ProcessContainer, destination: ProcessContainer, stage: StageExtension): void {
+        var sourcePoint = source.createPoint('red');
+        var destinationPoint = destination.createPoint('LawnGreen');
         var line = new RelationshipLineProperties(sourcePoint, destinationPoint);
         // var line = new RelationshipLineProperties(this.source, this.destination);
         stage.addChild(line.shape);

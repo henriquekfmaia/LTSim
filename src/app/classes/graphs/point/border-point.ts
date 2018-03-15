@@ -13,7 +13,6 @@ export class BorderPoint extends Point {
         this.x = 0;
         this.y = 0;
         this.radius = 4;
-        console.log(color);
         this.color = color;
         this.createShape();
         this.addEventHandlersToContainer(this);

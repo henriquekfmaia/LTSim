@@ -13,6 +13,7 @@ import { SimulatorCanvasComponent } from './simulator-canvas/simulator-canvas.co
 import { ProcessDetailComponent } from './process-detail/process-detail.component';
 import { ActionBarComponent } from './action-bar/action-bar.component';
 import { ProcessService } from './services/process.service';
+import { SimulatorService } from './services/simulator.service';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { ProcessService } from './services/process.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ ProcessService ],
+  providers: [ ProcessService, SimulatorService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
