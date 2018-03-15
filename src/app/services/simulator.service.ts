@@ -17,12 +17,7 @@ export class SimulatorService {
       processes: processes,
       relationships: relationships
     }
-    var r = this.http.post<Body>(endpoint, body).subscribe(result => console.log(result));
+    var r = this.http.post(endpoint, body).subscribe(result => console.log(result));
   }
 
-}
-
-export class Body {
-  processes: Process[]
-  relationship: Relationship[]
 }
