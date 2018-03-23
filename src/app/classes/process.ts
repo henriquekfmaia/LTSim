@@ -1,6 +1,10 @@
 import { ProcessDetailComponent } from "../process-detail/process-detail.component";
 import { StageExtension } from "./extensions/stage-extension";
 import { Relationship } from "./relationship";
+import { Model } from "./model";
+import { ProcessService } from "../services/process.service";
+import { ObservableInput, Observable } from "rxjs/Observable";
+import { timer } from "rxjs/observable/timer";
 
 export class Process {
   id: number;
@@ -14,6 +18,8 @@ export class Process {
   output: Relationship[];
   outputLimit: number;
   stageId: number;
+  model: Model;
+  models: Model[];
 
   constructor(process: Process) {
     this.id = process.id
@@ -26,6 +32,10 @@ export class Process {
     this.inputLimit = process.inputLimit;
     this.output = [];
     this.outputLimit = process.outputLimit;
+    this.models = process.models;
+    if(this.models.length > 0) {
+      this.model = this.models[0];
+    }
   }
 
   addInput(relationship: Relationship): void {
@@ -63,6 +73,8 @@ export class Process {
       return false;
     }
   }
+
+  
 
   hexStringToByte(str: string): Uint8Array {
     if (!str) {

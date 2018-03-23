@@ -5,6 +5,8 @@ import { HttpClientModule }    from '@angular/common/http';
 
 import { AppRoutingModule }     from './app-routing.module';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -14,6 +16,8 @@ import { ProcessDetailComponent } from './process-detail/process-detail.componen
 import { ActionBarComponent } from './action-bar/action-bar.component';
 import { ProcessService } from './services/process.service';
 import { SimulatorService } from './services/simulator.service';
+import { ParameterDetailComponent } from './parameter-detail/parameter-detail.component';
+import { ProcessEditorComponent } from './process-editor/process-editor.component';
 
 
 @NgModule({
@@ -24,13 +28,16 @@ import { SimulatorService } from './services/simulator.service';
     SimulatorInterfaceComponent,
     SimulatorCanvasComponent,
     ProcessDetailComponent,
-    ActionBarComponent
+    ActionBarComponent,
+    ParameterDetailComponent,
+    ProcessEditorComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule.forRoot()
   ],
   providers: [ ProcessService, SimulatorService ],
   bootstrap: [AppComponent]

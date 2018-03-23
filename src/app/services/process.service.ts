@@ -7,6 +7,7 @@ import { Process } from '../classes/process';
 import { ProcessType } from '../classes/process-type';
 import { PROCESSES_T1, PROCESSES_T2, PROCESSES_T3 } from '../mock/process-mock';
 import { PROCESS_TYPES } from '../mock/process-type-mock';
+import { Parameter } from '../classes/parameter';
 
 @Injectable()
 
@@ -19,6 +20,15 @@ export class ProcessService {
   getProcessTypes(): Observable<ProcessType[]> {
     var endpoint = this.url + 'get_process_types';
     return this.http.get<ProcessType[]>(endpoint);
-    // return of(PROCESS_TYPES);
+  }
+
+  getParametersFromModel(modelId: number): Observable<Parameter[]> {
+    var endpoint = this.url + 'get_parameters_from_model/' + modelId.toString();
+    return this.http.get<Parameter[]>(endpoint);
+  }
+
+  getProcessById(processId: number): Observable<Process> {
+    var endpoint = this.url + 'get_process_by_id/' + processId.toString();
+    return this.http.get<Process>(endpoint);
   }
 }

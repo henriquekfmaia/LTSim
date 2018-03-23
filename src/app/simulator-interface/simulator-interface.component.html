@@ -1,9 +1,15 @@
 <div>
     <div class="row">
-      <app-simulator-canvas [scope]="scope" class="col-9">
-      </app-simulator-canvas>
-      <app-process-detail [scope]="scope" *ngIf="scope.showDetail" class="col-3">
-      </app-process-detail>
+      <div class="col-9">
+        <app-simulator-canvas [scope]="scope">
+        </app-simulator-canvas>
+        <app-action-bar [scope]="scope"></app-action-bar>
+      </div>
+      <app-process-detail [scope]="scope"  class="col-3"
+                          *ngIf="scope.stageHandler &&
+                                 scope.stageHandler.stage &&
+                                 scope.stageHandler.stage.selectedContainer &&
+                                 scope.stageHandler.stage.selectedContainer != null">
+      </app-process-detail> <!-- *ngIf="scope.showDetail" -->
     </div>
-    <app-action-bar [scope]="scope"></app-action-bar>
 </div>

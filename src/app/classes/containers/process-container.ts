@@ -28,7 +28,6 @@ export class ProcessContainer extends ContainerExtension {
     
     setBitmap_a(imageBlob: Blob) {
       var a = createImageBitmap(imageBlob);
-      console.log(a);
       var bitmap = new createjs.Bitmap(a);
       this.addChild(bitmap);
     }
@@ -77,7 +76,6 @@ export class ProcessContainer extends ContainerExtension {
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
           }
           else if(evt.nativeEvent.button == 2) {
-            console.log(evt);
           }
         });
     

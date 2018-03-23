@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Scope } from '../classes/scope';
+import { Model } from '../classes/model';
 
 @Component({
   selector: 'app-process-detail',
@@ -11,6 +12,10 @@ export class ProcessDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  changeModel(model: Model): void {
+    this.scope.stageHandler.stage.selectedContainer.process.model = model;
   }
 
 }

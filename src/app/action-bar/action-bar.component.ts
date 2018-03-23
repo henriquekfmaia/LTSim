@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 import { ActionBarStateEnum } from './action-bar-state';
 import { Scope } from '../classes/scope';
@@ -18,9 +20,12 @@ export class ActionBarComponent implements OnInit {
 
   state: ActionBarStateEnum;
   types: ProcessType[];
-  processes: Process[];
+  processes: Array<Process>;
+  processCache: Array<Process>;
 
-  constructor(private processService: ProcessService, private simulatorService: SimulatorService) { }
+  constructor(private processService: ProcessService, private simulatorService: SimulatorService) {
+    this.processCache = new Array<Process>();
+  }
 
   ngOnInit() {
     this.state = ActionBarStateEnum.IDLE;
@@ -39,8 +44,11 @@ export class ActionBarComponent implements OnInit {
 
   addProcessBtn(processContract: Process): void {
     this.state = ActionBarStateEnum.IDLE;
-    var process = new Process(processContract);
-    this.scope.stageHandler.newProcess(process);
+    this.getProcess(processContract.id).subscribe(p => {
+      console.log(p);
+      var process = new Process(p);
+      this.scope.stageHandler.newProcess(process);
+    });
   }
 
   deleteElement(): void {
@@ -50,5 +58,15 @@ export class ActionBarComponent implements OnInit {
   beginSimulation(): void {
     this.simulatorService.simulate(this.scope.stageHandler.stage.processes, 
                                    this.scope.stageHandler.stage.relationships);
+  }
+
+  getProcess(processId: number): Observable<Process> {
+    var index = this.processCache.findIndex(function(p) { return p.id == processId; });
+    if(index == -1) {
+      return this.processService.getProcessById(processId);
+    }
+    else {
+      return of(this.processCache[index]);
+    }
   }
 }

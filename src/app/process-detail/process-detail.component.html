@@ -1,8 +1,27 @@
 <br>
 <form>
     <div class="form-group">
-        <label for="processName">Name</label>
-        <input type="text" class="form-control" id="processName" 
-        placeholder="{{scope.stageHandler.stage.selectedContainer.process.name}}" readonly>
+        <div>
+            <label for="processName">Name</label>
+            <input type="text" class="form-control" id="processName" 
+            placeholder="{{scope.stageHandler.stage.selectedContainer.process.name}}" readonly>
+        </div>
+        <br/>
+        <div ngbDropdown class="d-inline-block" *ngIf="scope.stageHandler.stage.selectedContainer.process.models.length > 0">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                {{scope.stageHandler.stage.selectedContainer.process.model.name}}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                 <div *ngFor="let m of scope.stageHandler.stage.selectedContainer.process.models">
+                     <button class="dropdown-item" (click)="changeModel(m)" >{{m.name}}</button>
+                 </div>
+            </div>
+        </div>
+        <br/>
+        <div *ngFor="let parameter of scope.stageHandler.stage.selectedContainer.process.model.parameters">
+                <label for="parameter">{{parameter.name}}</label>
+                <input type="text" class="form-control" id="parameterName">
+            <!-- <app-parameter-detail [parameter]="parameter"></app-parameter-detail> -->
+        </div>
     </div>
 </form>

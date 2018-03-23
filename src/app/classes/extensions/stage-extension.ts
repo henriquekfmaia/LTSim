@@ -8,7 +8,6 @@ import { Relationship } from '../relationship';
 
 export class StageExtension extends createjs.Stage {
   selectedContainer: ProcessContainer;
-  boo: boolean;
   creatingRelationship: boolean;
 
   processes: Process[];
@@ -16,7 +15,6 @@ export class StageExtension extends createjs.Stage {
 
   constructor(canvasName: string) {
     super(canvasName);
-    this.boo = false;
     this.creatingRelationship = false;
     this.processes = [];
     this.relationships = [];
