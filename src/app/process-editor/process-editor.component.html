@@ -1,7 +1,8 @@
+<br/>
 <div class="row">
-  <div class="col">
+  <div class="col mx-sm-4 mb-4">
     <div ngbDropdown class="d-inline-block" *ngFor="let type of types">
-      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{type.name}}</button>
+      <button class="btn btn-outline-primary" style="margin-right: 15px;" id="dropdownBasic1" ngbDropdownToggle>{{type.name}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <div  *ngFor="let process of type.processes">
           <button class="dropdown-item" (click)="selectProcess(process)">{{process.name}}</button>
@@ -11,12 +12,12 @@
   </div>
 </div>
 <br/>
-<div class="col" *ngIf="process && process != null">
-  <div class="row">
+<div class="col mx-sm-4 mb-4" *ngIf="process && process != null">
+  <form class="form-inline">
       <label for="processName">Name</label>
-      <input type="text" class="form-control" id="processName" 
-      placeholder="{{process.name}}" readonly>
-  </div>
+      <input type="text" class="form-control mx-sm-4 mb-4" id="processName" 
+      placeholder="{{process.name}}" style="margin: 24px;" readonly>
+  </form>
   <br/>
   <div ngbDropdown class="row d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
@@ -31,11 +32,36 @@
       </div>
   </div>
   <br/>
+  <br/>
   <div class="row">
-      <div class="col form-group" *ngIf="process.model && process.model != null">
-        <div *ngFor="let parameter of process.model.parameters">
-          <p>{{parameter.name}}</p>
+    <div class="form-inline" *ngIf="process.model && process.model != null">
+      <div *ngFor="let parameter of process.model.parameters">
+        <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+          <input type="text" class="form-control" id="processName" [(ngModel)]="parameter.key">
         </div>
+        <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+          <input type="text" class="form-control" id="processName" [(ngModel)]="parameter.name">
+        </div>
+        <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+          <input type="text" class="form-control" id="processName" [(ngModel)]="parameter.unit">
+        </div>
+        <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+          <input type="text" class="form-control" id="processName" [(ngModel)]="parameter.type">
+        </div>
+        <button type="button" class="btn btn-danger" (click)="deleteParameter(parameter)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <br/>
+        <br/>
+      </div>
+      <div>
+      <button type="button" class="btn btn-success" (click)="addParameter(parameter)">
+        Add Parameter
+      </button>
+      <button type="button" class="btn btn-info" (click)="saveModel(model)">
+        Save Model
+      </button>
       </div>
     </div>
+  </div>
 </div>

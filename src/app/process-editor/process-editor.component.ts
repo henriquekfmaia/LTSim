@@ -48,6 +48,8 @@ export class ProcessEditorComponent implements OnInit {
 
   selectModel(model: Model): void {
     this.process.model = model;
+    console.log(this.process);
+    console.log(model);
   }
 
   newModel(): void {
@@ -58,11 +60,13 @@ export class ProcessEditorComponent implements OnInit {
   }
 
   addParameter(parameter: Parameter): void {
-
+    var parameter = new Parameter();
+    this.process.model.parameters.push(parameter);
   }
 
   deleteParameter(parameter: Parameter): void {
-
+    var index = this.process.model.parameters.indexOf(parameter);
+    this.process.model.parameters.splice(index, 1);
   }
 
   saveProcess(process: Process): void {

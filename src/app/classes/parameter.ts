@@ -3,5 +3,6 @@ export class Parameter {
     key: string;
     name: string;
     unit: string;
+    type: number;
     value: any;
 }
