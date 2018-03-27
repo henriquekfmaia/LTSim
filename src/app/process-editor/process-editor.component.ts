@@ -69,8 +69,8 @@ export class ProcessEditorComponent implements OnInit {
     this.process.model.parameters.splice(index, 1);
   }
 
-  saveProcess(process: Process): void {
-
+  saveModel(model: Model, processId: number): void {
+    this.processService.saveModel(model, processId);
   }
 
 }

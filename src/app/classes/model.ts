@@ -5,8 +5,11 @@ import { timer } from "rxjs/observable/timer";
 export class Model {
     id: number;
     name: string;
-    parameters: Parameter[];
+    parameters: Array<Parameter>;
 
+    constructor() {
+      this.parameters = new Array<Parameter>();
+    }
 
     getParameters(processService: ProcessService): void {
         this.parameters = null;

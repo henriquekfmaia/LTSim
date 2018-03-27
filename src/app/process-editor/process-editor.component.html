@@ -35,6 +35,23 @@
   <br/>
   <div class="row">
     <div class="form-inline" *ngIf="process.model && process.model != null">
+      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+        <input type="text" class="form-control" id="processName" placeholder="Key" readonly>
+      </div>
+      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+        <input type="text" class="form-control" id="processName" placeholder="Name" readonly>
+      </div>
+      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+        <input type="text" class="form-control" id="processName" placeholder="Unit" readonly>
+      </div>
+      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+        <input type="text" class="form-control" id="processName" placeholder="Type" readonly>
+      </div>
+      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+        <input type="text" class="form-control" id="processName" placeholder="Delete" readonly>
+      </div>
+      <br/>
+      <br/>
       <div *ngFor="let parameter of process.model.parameters">
         <div class="form-group mx-sm-4 mb-4" style="display: inline;">
           <input type="text" class="form-control" id="processName" [(ngModel)]="parameter.key">
@@ -58,7 +75,7 @@
       <button type="button" class="btn btn-success" (click)="addParameter(parameter)">
         Add Parameter
       </button>
-      <button type="button" class="btn btn-info" (click)="saveModel(model)">
+      <button type="button" class="btn btn-info" (click)="saveModel(process.model, process.id)">
         Save Model
       </button>
       </div>
