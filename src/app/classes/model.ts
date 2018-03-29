@@ -6,9 +6,11 @@ export class Model {
     id: number;
     name: string;
     parameters: Array<Parameter>;
+    script: string;
 
     constructor() {
       this.parameters = new Array<Parameter>();
+      this.script = '';
     }
 
     getParameters(processService: ProcessService): void {
