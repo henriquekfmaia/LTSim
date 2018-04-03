@@ -15,6 +15,6 @@ export class SimulatorCanvasComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit() {
-    this.scope.stageHandler = new StageHandler('simulatorCanvas', this.scope);
+    this.scope.setStageHandler(new StageHandler('simulatorCanvas'));
   }
 }

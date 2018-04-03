@@ -1,4 +1,6 @@
 import * as createjs from 'createjs-module';
+import { SignalDispatcher, SimpleEventDispatcher, EventDispatcher } from "strongly-typed-events";
+
 import { Process } from '../process';
 import { ContainerExtension } from './container-extension';
 import { ProcessContainer } from '../containers/process-container';
@@ -7,6 +9,7 @@ import { Relationship } from '../relationship';
 
 
 export class StageExtension extends createjs.Stage {
+  private _onShowDetail = new SimpleEventDispatcher<ProcessContainer>();
   selectedContainer: ProcessContainer;
   creatingRelationship: boolean;
 
@@ -39,6 +42,15 @@ export class StageExtension extends createjs.Stage {
   removeRelationship(relationship: Relationship): void {
     var index = this.relationships.indexOf(relationship);
     this.relationships.splice(index, 1);
+  }
+
+  setSelectedContainer(processContainer: ProcessContainer): void {
+    this.selectedContainer = processContainer;
+    this.selectedContainer.onShowDetail.one(s => this._onShowDetail.dispatch(s));
+  }
+
+  public get onShowDetail() {
+    return this._onShowDetail.asEvent();
   }
 
   getNextIdFromArray(feed: number, array: any[]): number {

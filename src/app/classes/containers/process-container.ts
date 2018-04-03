@@ -1,5 +1,6 @@
 import * as createjs from 'createjs-module';
 import { timer } from 'rxjs/observable/timer';
+import { SignalDispatcher, SimpleEventDispatcher, EventDispatcher } from "strongly-typed-events";
 
 import { Process } from '../process';
 import { MouseEventExtension } from '../extensions/mouse-event-extension';
@@ -10,6 +11,7 @@ import { BorderPoint } from '../graphs/point/border-point';
 import { ContainerExtension } from '../extensions/container-extension';
 
 export class ProcessContainer extends ContainerExtension {
+    private _onShowDetail = new SimpleEventDispatcher<ProcessContainer>();
     process: Process;
     borders: Borders;
   
@@ -76,6 +78,9 @@ export class ProcessContainer extends ContainerExtension {
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
           }
           else if(evt.nativeEvent.button == 2) {
+            var stage = this.stage as StageExtension;
+            stage.setSelectedContainer(this);
+            this._onShowDetail.dispatch(this);
           }
         });
     
@@ -109,4 +114,9 @@ export class ProcessContainer extends ContainerExtension {
           }
         });
     }
+
+    public get onShowDetail() {
+      return this._onShowDetail.asEvent();
+    }
+
 }

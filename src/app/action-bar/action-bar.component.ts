@@ -45,7 +45,6 @@ export class ActionBarComponent implements OnInit {
   addProcessBtn(processContract: Process): void {
     this.state = ActionBarStateEnum.IDLE;
     this.getProcess(processContract.id).subscribe(p => {
-      console.log(p);
       var process = new Process(p);
       this.scope.stageHandler.newProcess(process);
     });

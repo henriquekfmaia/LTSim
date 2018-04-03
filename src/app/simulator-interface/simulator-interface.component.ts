@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Scope } from '../classes/scope';
+import { Process } from '../classes/process';
 
 @Component({
   selector: 'app-simulator-interface',
@@ -14,6 +15,12 @@ export class SimulatorInterfaceComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.scope.onShowDetail.subscribe(p => this.showProcessDetail(p.process));
+    // this.scope.onShowDetail.one(p => this.showProcessDetail(p.process));
+  }
+
+  showProcessDetail(process: Process) {
+    console.log(process);
   }
 
 }

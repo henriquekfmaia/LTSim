@@ -30,14 +30,12 @@ export class BorderPoint extends Point {
         container.on('mousedown', function(evt: MouseEventExtension) {
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
             if(evt.target.parent == container) {
-                // console.log(evt);
             }
         });
         
         container.on('mouseup', function(evt: MouseEventExtension) {
             this.offset = undefined;
             if(evt.target.parent == container) {
-                // console.log(evt);
             }
         });
         
