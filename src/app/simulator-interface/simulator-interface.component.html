@@ -5,11 +5,11 @@
         </app-simulator-canvas>
         <app-action-bar [scope]="scope"></app-action-bar>
       </div>
-      <app-process-detail [scope]="scope"  class="col-3"
-                          *ngIf="scope.stageHandler &&
-                                 scope.stageHandler.stage &&
-                                 scope.stageHandler.stage.selectedContainer &&
-                                 scope.stageHandler.stage.selectedContainer != null">
-      </app-process-detail> <!-- *ngIf="scope.showDetail" -->
+      <app-process-detail [scope]="scope"  class="col-3"></app-process-detail> 
     </div>
 </div>
+<!-- *ngIf="scope.showDetail" -->
+<!-- *ngIf="scope.stageHandler &&
+scope.stageHandler.stage &&
+scope.stageHandler.stage.selectedContainer &&
+scope.stageHandler.stage.selectedContainer != null" -->

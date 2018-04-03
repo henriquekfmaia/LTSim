@@ -9,10 +9,8 @@ import { ProcessContainer } from './containers/process-container';
 
 export class StageHandler {
   stage: StageExtension;
-  scope: Scope;
   
   constructor(canvasName: string, scope: Scope) {
-    this.scope = scope;
     this.stage = new StageExtension(canvasName);
     (this.stage.canvas as HTMLCanvasElement).style.width='100%';
     (this.stage.canvas as HTMLCanvasElement).width = (this.stage.canvas as HTMLCanvasElement).offsetWidth;
@@ -26,9 +24,6 @@ export class StageHandler {
     this.stage.addChild(container);
     container.start(process);
     this.stage.addProcess(process);
-    timer(100).subscribe(val => {
-      this.stage.update();
-    });
     
   }
 
@@ -36,8 +31,5 @@ export class StageHandler {
     this.stage.removeChild(this.stage.selectedContainer);
     this.stage.removeProcess(this.stage.selectedContainer.process);
     this.stage.selectedContainer = null;
-    timer(100).subscribe(val => {
-      this.stage.update();
-    });
   }
 }

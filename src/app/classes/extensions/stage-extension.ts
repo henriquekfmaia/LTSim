@@ -18,6 +18,7 @@ export class StageExtension extends createjs.Stage {
     this.creatingRelationship = false;
     this.processes = [];
     this.relationships = [];
+    this.updateOnTick();
   }
 
   addProcess(process: Process): void {
@@ -82,5 +83,13 @@ export class StageExtension extends createjs.Stage {
   checkStageId(item, index, array, feed): boolean {
     if(item.stageId != feed) { return true; }
     else { return false; }
+  }
+
+  updateOnTick(): void {
+    var stage = this;
+    createjs.Ticker.framerate = 60;
+    createjs.Ticker.addEventListener('tick', function(evt) {
+      stage.update();
+    });
   }
 }

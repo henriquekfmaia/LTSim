@@ -48,7 +48,6 @@ export class ContainerBorderLine extends ContainerExtension {
         parent.addChild(this);
         this.addChild(this.properties.shape);
         this.properties.drawLine();
-        parent.stage.update();
     }
 
     

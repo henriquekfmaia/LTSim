@@ -65,7 +65,6 @@ export class BorderPoint extends Point {
                 else if(min == right || this.x > width) {
                     this.x = container.parent.getBounds().width;
                 }
-                this.stage.update();
             }
         });
     }

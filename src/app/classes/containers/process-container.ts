@@ -88,7 +88,6 @@ export class ProcessContainer extends ContainerExtension {
           if(this.offset && evt.target.parent == container){
               this.x = evt.stageX + this.offset.x;
               this.y = evt.stageY + this.offset.y;
-              this.stage.update();
           }
         });
     
@@ -107,9 +106,6 @@ export class ProcessContainer extends ContainerExtension {
           }
           else {
             this.stage.boo = false;
-            timer(100).subscribe(val => {
-              this.stage.update();
-            });
           }
         });
     }
