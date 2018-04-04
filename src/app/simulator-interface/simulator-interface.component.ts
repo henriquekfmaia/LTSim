@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Scope } from '../classes/scope';
 import { Process } from '../classes/process';
+import { ProcessDetailComponent } from '../process-detail/process-detail.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-simulator-interface',
@@ -12,15 +14,15 @@ export class SimulatorInterfaceComponent implements OnInit {
 
   scope: Scope = new Scope();
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
     this.scope.onShowDetail.subscribe(p => this.showProcessDetail(p.process));
-    // this.scope.onShowDetail.one(p => this.showProcessDetail(p.process));
   }
 
   showProcessDetail(process: Process) {
-    console.log(process);
+    const modalRef = this.modalService.open(ProcessDetailComponent, { size: 'lg', backdropClass: 'light-blue-backdrop' });
+    modalRef.componentInstance.process = process;
   }
 
 }

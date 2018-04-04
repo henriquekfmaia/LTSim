@@ -39,6 +39,9 @@ import { ProcessEditorComponent } from './process-editor/process-editor.componen
     HttpClientModule,
     NgbModule.forRoot()
   ],
+  entryComponents: [
+      ProcessDetailComponent
+  ],
   providers: [ ProcessService, SimulatorService ],
   bootstrap: [AppComponent]
 })
