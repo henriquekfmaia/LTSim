@@ -27,12 +27,19 @@ export class Distribution {
 
     setKeysFromArrayFromDown(): void {
         for(var i = 1; i <= this.size; i++) {
-            
+            if(!this.array[i]) {
+                this.array[i] = new Parameter();
+            }
+            this.array[i].key = this.getKey(i);
+            this.array[i].name = this.array[i].key
         }
     }
     
     setKeysFromArrayFromUp(): void {
         for(var i = this.size; i > 0; i--) {
+            if(!this.array[i]) {
+                this.array[i] = new Parameter();
+            }
             this.array[i].key = this.getKey(i);
             this.array[i].name = this.array[i].key
         }
