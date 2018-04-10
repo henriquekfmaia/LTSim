@@ -28,6 +28,7 @@
     "createjs-module": "^0.8.3",
     "graphdracula": "^1.2.0",
     "mathjs": "^4.0.0",
+    "ngx-pipes": "^2.1.2",
     "raphael": "^2.2.7",
     "rxjs": "^5.5.6",
     "strongly-typed-events": "^1.3.12",

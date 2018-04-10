@@ -24,10 +24,14 @@ export class ProcessDetailComponent implements OnInit {
       this.process.model = model;
       this.process.model.parameters.forEach(function(p) {
         if(p.type == 4 && !(p.value instanceof Distribution)) {
-          p.value = new Distribution(true, 10, 10, 100, true);
+          p.value = new Distribution(true, 10, 10, 100, false);
         }
       });
     }
+  }
+
+  calculateFirst(distribution: Distribution): void {
+    distribution.calculateFirst();
   }
 
 }
