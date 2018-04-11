@@ -101,7 +101,6 @@ export class Distribution {
                 this.array[i].value = 0;
             }
         }
-        console.log(sum);
         this.array[0].value = 100 - sum;
     }
 }
