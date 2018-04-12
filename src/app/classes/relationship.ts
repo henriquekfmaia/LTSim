@@ -3,6 +3,7 @@ import { RelationshipLineProperties } from './graphs/line-properties/relationshi
 import { ProcessContainer } from './containers/process-container';
 import { StageExtension } from './extensions/stage-extension';
 import { StageHandler } from './stage-handler';
+import { Flow } from './flow';
 
 export class Relationship {
     sourceId: number;
@@ -10,7 +11,7 @@ export class Relationship {
     path: RelationshipLineProperties[];
     stageId: number;
     isRelationshipValid: Boolean;
-    flow: number[];
+    flow: Flow;
 
     constructor(source: ProcessContainer, destination: ProcessContainer, stage: StageExtension) {
         this.isRelationshipValid = this.setInputOutput(source, destination);
