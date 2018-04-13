@@ -6,10 +6,12 @@ export class Model {
     id: number;
     name: string;
     parameters: Array<Parameter>;
+    results: Array<Parameter>;
     script: string;
 
     constructor() {
       this.parameters = new Array<Parameter>();
+      this.results = new Array<Parameter>();
       this.script = '';
     }
 

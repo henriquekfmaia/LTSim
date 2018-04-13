@@ -20,22 +20,19 @@
   </form>
   <br/>
   <div ngbDropdown class="row d-inline-block">
-      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-          <span *ngIf="process.model">{{process.model.name}}</span>
-          <span *ngIf="!process.model">No Models</span>
-      </button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <div *ngFor="let m of process.models">
-                <button class="dropdown-item" (click)="selectModel(m)" >{{m.name}}</button>
-            </div>
-            <button class="dropdown-item" (click)="newModel()" >New Model</button>
-      </div>
+    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+        <span *ngIf="process.model">{{process.model.name}}</span>
+        <span *ngIf="!process.model">No Models</span>
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <div *ngFor="let m of process.models">
+              <button class="dropdown-item" (click)="selectModel(m)" >{{m.name}}</button>
+          </div>
+          <button class="dropdown-item" (click)="newModel()" >New Model</button>
+    </div>
   </div>
-  <br/>
-  <br/>
   
-  <!-- <div class="row"> -->
-  <div class="form-inline" *ngIf="process.model && process.model != null">
+  <div *ngIf="process.model && process.model != null">
     <div class="row">
       <div class="form-inline">
           <label for="modelName">Model Name</label>
@@ -43,55 +40,26 @@
           [(ngModel)]="process.model.name" style="margin: 24px;">
       </div>
     </div>
-    <div class="row">
-      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
-        <input type="text" class="form-control" id="processName" placeholder="Key" readonly>
-      </div>
-      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
-        <input type="text" class="form-control" id="processName" placeholder="Name" readonly>
-      </div>
-      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
-        <input type="text" class="form-control" id="processName" placeholder="Unit" readonly>
-      </div>
-      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
-        <input type="text" class="form-control" id="processName" placeholder="Type" readonly>
-      </div>
-      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
-        <input type="text" class="form-control" id="processName" placeholder="Delete" readonly>
-      </div>
-    </div>
-    <div *ngFor="let parameter of process.model.parameters">
-      <div class="row">
-        <div class="form-group mx-sm-4 mb-4" style="display: inline;">
-          <input type="text" class="form-control" id="processName" [(ngModel)]="parameter.key">
-        </div>
-        <div class="form-group mx-sm-4 mb-4" style="display: inline;">
-          <input type="text" class="form-control" id="processName" [(ngModel)]="parameter.name">
-        </div>
-        <div class="form-group mx-sm-4 mb-4" style="display: inline;">
-          <input type="text" class="form-control" id="processName" [(ngModel)]="parameter.unit">
-        </div>
-        <div class="form-group mx-sm-4 mb-4" style="display: inline;">
-          <input type="text" class="form-control" id="processName" [(ngModel)]="parameter.type">
-        </div>
-        <div>
-          <button type="button" class="btn btn-danger" (click)="deleteParameter(parameter)">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div>
-      <!-- <div class="form-inline">
-        <label for="exampleFormControlFile1" style="margin-right: 30px;">Upload Script</label>
-        <input type="file" class="form-control-file" id="exampleFormControlFile1">
-      </div>
-      <br/> -->
-      <button type="button" class="btn btn-success" (click)="addParameter(parameter)">
-        Add Parameter
-      </button>
-      <button type="button" class="btn btn-info" (click)="saveModel(process.model, process.id)">
-        Save Model
-      </button>
+    <ngb-tabset>
+      <ngb-tab title="Parameters">
+        <ng-template ngbTabContent>
+          <app-parameter-editor [model]="process.model"></app-parameter-editor>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Results">
+        <ng-template ngbTabContent>
+          <app-result-editor [model]="process.model"></app-result-editor>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Script">
+        <ng-template ngbTabContent>
+          <app-script-editor [model]="process.model"></app-script-editor>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <button type="button" class="btn btn-info" (click)="saveModel(model, process.id)" style="margin-top: 24px;">
+      Save Model
+    </button>
   </div>
+
 </div>

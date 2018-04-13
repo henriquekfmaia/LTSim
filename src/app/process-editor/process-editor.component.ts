@@ -57,16 +57,6 @@ export class ProcessEditorComponent implements OnInit {
     this.process.models.push(model);
   }
 
-  addParameter(parameter: Parameter): void {
-    var parameter = new Parameter();
-    this.process.model.parameters.push(parameter);
-  }
-
-  deleteParameter(parameter: Parameter): void {
-    var index = this.process.model.parameters.indexOf(parameter);
-    this.process.model.parameters.splice(index, 1);
-  }
-
   saveModel(model: Model, processId: number): void {
     this.processService.saveModel(model, processId);
   }

@@ -18,6 +18,9 @@ import { ProcessService } from './services/process.service';
 import { SimulatorService } from './services/simulator.service';
 import { ParameterDetailComponent } from './parameter-detail/parameter-detail.component';
 import { ProcessEditorComponent } from './process-editor/process-editor.component';
+import { ParameterEditorComponent } from './parameter-editor/parameter-editor.component';
+import { ResultEditorComponent } from './result-editor/result-editor.component';
+import { ScriptEditorComponent } from './script-editor/script-editor.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { ProcessEditorComponent } from './process-editor/process-editor.componen
     ProcessDetailComponent,
     ActionBarComponent,
     ParameterDetailComponent,
-    ProcessEditorComponent
+    ProcessEditorComponent,
+    ParameterEditorComponent,
+    ResultEditorComponent,
+    ScriptEditorComponent
   ],
   imports: [
     BrowserModule,

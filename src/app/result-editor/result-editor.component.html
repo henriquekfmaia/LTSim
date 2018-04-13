@@ -1,0 +1,48 @@
+<div class="form-inline" *ngIf="model && model != null" style="margin-top: 24px;">
+  <div class="row">
+    <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+      <input type="text" class="form-control" id="processName" placeholder="Key" readonly>
+    </div>
+    <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+      <input type="text" class="form-control" id="processName" placeholder="Name" readonly>
+    </div>
+    <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+      <input type="text" class="form-control" id="processName" placeholder="Unit" readonly>
+    </div>
+    <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+      <input type="text" class="form-control" id="processName" placeholder="Type" readonly>
+    </div>
+    <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+      <input type="text" class="form-control" id="processName" placeholder="Delete" readonly>
+    </div>
+  </div>
+        
+  <div *ngFor="let result of model.results">
+    <div class="row">
+      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+        <input type="text" class="form-control" id="processName" [(ngModel)]="result.key">
+      </div>
+      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+        <input type="text" class="form-control" id="processName" [(ngModel)]="result.name">
+      </div>
+      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+        <input type="text" class="form-control" id="processName" [(ngModel)]="result.unit">
+      </div>
+      <div class="form-group mx-sm-4 mb-4" style="display: inline;">
+        <input type="text" class="form-control" id="processName" [(ngModel)]="result.type">
+      </div>
+      <div>
+        <button type="button" class="btn btn-danger" (click)="deleteResult(result)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group mx-sm-4 mb-4">
+    <button type="button" class="btn btn-success" (click)="addResult(result)">
+      Add Result
+    </button>
+  </div>
+</div>
