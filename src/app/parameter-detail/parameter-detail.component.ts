@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Parameter } from '../classes/parameter';
+import { Model } from '../classes/model';
+import { Distribution } from '../classes/distribution';
 
 @Component({
   selector: 'app-parameter-detail',
@@ -7,10 +8,13 @@ import { Parameter } from '../classes/parameter';
   styleUrls: ['./parameter-detail.component.css']
 })
 export class ParameterDetailComponent implements OnInit {
-  @Input() parameter: Parameter;
+  @Input() model: Model;
   constructor() { }
 
   ngOnInit() {
   }
 
+  calculateFirst(distribution: Distribution): void {
+    distribution.calculateFirst();
+  }
 }

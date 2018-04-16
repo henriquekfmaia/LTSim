@@ -1,3 +1,26 @@
-<label for="processParameter">{{ parameter.name }}</label>
-<input type="text" class="form-control" id="processParameter" 
-placeholder="{{ parameter.name }}" readonly>
+<form class="form-horizontal" *ngIf="model">
+    <div *ngFor="let parameter of model.parameters">
+        <div class="form-group form-group-sm row col-sm-12" *ngIf="parameter.type != 4">
+            <label class="col-sm-4 control-label" for="parameter">{{parameter.name}} ({{parameter.unit}})</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="parameterName" name="{{parameter.name}}" [(ngModel)]="parameter.value" *ngIf="parameter.type != 5">
+                <input type="text" class="form-control" id="parameterName" name="{{parameter.name}}" placeholder="Input parameter" *ngIf="parameter.type == 5" readonly>
+            </div>
+        </div>
+        <div *ngIf="parameter.type == 4">
+            <label class="col-sm-4 control-label" for="parameter">{{parameter.name}} ({{parameter.unit}})</label>
+            <div style="border-width: 1px; border-style: solid; border-radius: 16px; margin: 5px;">
+                <br/>
+                <div *ngFor="let item of parameter.value.array | reverse; last as isLast">
+                    <!-- <div class="form-group form-group-sm row col-sm-12" *ngIf="item"> -->
+                    <div class="form-group row col-sm-12" *ngIf="item">
+                        <label class="col-sm-4 control-label" style="margin-top: 8px;" for="item">{{item.name}} ({{parameter.unit}})</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="parameterName" name="{{item.key}}" (input)="calculateFirst(parameter.value)" [(ngModel)]="item.value" [readonly]="isLast">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

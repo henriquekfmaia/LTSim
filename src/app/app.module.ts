@@ -21,6 +21,7 @@ import { ProcessEditorComponent } from './process-editor/process-editor.componen
 import { ParameterEditorComponent } from './parameter-editor/parameter-editor.component';
 import { ResultEditorComponent } from './result-editor/result-editor.component';
 import { ScriptEditorComponent } from './script-editor/script-editor.component';
+import { ResultDetailComponent } from './result-detail/result-detail.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ScriptEditorComponent } from './script-editor/script-editor.component';
     ProcessEditorComponent,
     ParameterEditorComponent,
     ResultEditorComponent,
-    ScriptEditorComponent
+    ScriptEditorComponent,
+    ResultDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -27,6 +27,11 @@ export class ProcessDetailComponent implements OnInit {
           p.value = new Distribution(true, 10, 10, 100, false);
         }
       });
+      this.process.model.results.forEach(function(r) {
+        if(r.type == 4 && !(r.value instanceof Distribution)) {
+          r.value = new Distribution(true, 10, 10, 100, false);
+        }
+      });
     }
   }
 

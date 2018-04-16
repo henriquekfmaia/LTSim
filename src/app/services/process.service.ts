@@ -45,6 +45,7 @@ export class ProcessService {
       model: model,
       processId: processId
     };
+    console.log(body);
     this.http.post(endpoint, body).subscribe();
   }
 }
