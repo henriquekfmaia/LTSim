@@ -3,7 +3,7 @@
         <div class="form-group form-group-sm row col-sm-12" *ngIf="result.type != 4">
             <label class="col-sm-4 control-label" for="result">{{result.name}} ({{result.unit}})</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="resultName" name="{{result.name}}" placeholder="{{result.value}}" *ngIf="!result.value" readonly>
+                <input type="text" class="form-control" id="resultName" name="{{result.name}}" placeholder="{{result.value}}" *ngIf="result.value" readonly>
                 <input type="text" class="form-control" id="resultName" name="{{result.name}}" placeholder="Waiting for simulation" *ngIf="!result.value" readonly>
                 <!-- <input type="text" class="form-control" id="resultName" name="{{result.name}}" placeholder="Input result" *ngIf="result.type == 5" readonly> -->
             </div>
