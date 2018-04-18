@@ -16,7 +16,7 @@
                     <div class="form-group row col-sm-12" *ngIf="item">
                         <label class="col-sm-4 control-label" style="margin-top: 8px;" for="item">{{item.name}} ({{result.unit}})</label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="resultName" name="{{item.key}}" [(ngModel)]="item.value" [readonly]="isLast">
+                            <input type="number" class="form-control" id="resultName" name="{{item.key}}" [(ngModel)]="item.value" readonly>
                         </div>
                     </div>
                 </div>

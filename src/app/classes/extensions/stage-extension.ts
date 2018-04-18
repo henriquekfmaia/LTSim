@@ -13,25 +13,42 @@ export class StageExtension extends createjs.Stage {
   selectedContainer: ProcessContainer;
   creatingRelationship: boolean;
 
-  processes: Process[];
+  // processes: Process[];
+  processContainers(): ProcessContainer[] {
+    return this.children.filter(function(child) {
+      if(child instanceof ProcessContainer) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }).map(function(container: ProcessContainer) {
+      return container;
+    });
+  }
+  processes(): Process[] {
+    return this.processContainers().map(function(container) {
+      return container.process;
+    })
+  }
   relationships: Relationship[];
 
   constructor(canvasName: string) {
     super(canvasName);
     this.creatingRelationship = false;
-    this.processes = [];
+    // this.processes = [];
     this.relationships = [];
     this.updateOnTick();
   }
 
   addProcess(process: Process): void {
-    process.stageId = this.getNextIdFromArray(-1, this.processes);
-    this.processes.push(process);
+    process.stageId = this.getNextIdFromArray(-1, this.processes());
+    // this.processes.push(process);
   }
 
   removeProcess(process: Process): void {
-    var index = this.processes.indexOf(process);
-    this.processes.splice(index, 1);
+    var index = this.processes().indexOf(process);
+    // this.processes.splice(index, 1);
   }
 
   addRelationship(relationship: Relationship): void {
@@ -80,8 +97,8 @@ export class StageExtension extends createjs.Stage {
       return this.getProcessStageId(this.processes.length);
     }
     else if (feed > 0 && (
-      this.processes.length == 0 || 
-      this.processes.every(function(process, index, array) {
+      this.processes().length == 0 || 
+      this.processes().every(function(process, index, array) {
         if(process.stageId != feed) { return true; }
         else { return false; }
       }))) {
@@ -102,6 +119,19 @@ export class StageExtension extends createjs.Stage {
     createjs.Ticker.framerate = 60;
     createjs.Ticker.addEventListener('tick', function(evt) {
       stage.update();
+    });
+  }
+  
+  updateProcesses(newProcesses: Process[]): void{
+    this.processContainers().forEach(function(c) {
+      c.process = newProcesses.find(function(np) {
+        if(np.stageId == c.process.stageId) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
     });
   }
 }

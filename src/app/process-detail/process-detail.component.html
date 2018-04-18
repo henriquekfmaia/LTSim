@@ -28,8 +28,8 @@
       </ng-template>
     </ngb-tab>
     <ngb-tab title="Results" *ngIf="process.model.results">
-        <br/>
         <ng-template ngbTabContent>
+          <br/>
           <app-result-detail [model]="process.model"></app-result-detail>
         </ng-template>
     </ngb-tab>

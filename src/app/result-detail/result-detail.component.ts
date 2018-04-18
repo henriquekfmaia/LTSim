@@ -11,7 +11,6 @@ export class ResultDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.model);
   }
 
 }

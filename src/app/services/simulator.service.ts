@@ -5,19 +5,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Process } from '../classes/process';
 import { Relationship } from '../classes/relationship';
+import { SimulationObject } from '../classes/simulation-object';
 @Injectable()
 export class SimulatorService {
   private url = 'http://localhost:5000/';
   
   constructor(private http: HttpClient) { }
 
-  simulate(processes: Process[], relationships: Relationship[]): void {
+  simulate(processes: Process[], relationships: Relationship[]): Observable<SimulationObject> {
     var endpoint = this.url + 'simulate';
-    var body = {
-      processes: processes,
-      relationships: relationships
-    }
-    var r = this.http.post(endpoint, body).subscribe(result => console.log(result));
+    // var body = {
+    //   processes: processes,
+    //   relationships: relationships
+    // }
+    var simulationObject = new SimulationObject(processes, relationships);
+    simulationObject.processes.forEach(function(p) {
+      console.log(p.model.results)
+    });
+    var result = this.http.post<SimulationObject>(endpoint, simulationObject);
+    return result;
   }
 
 }

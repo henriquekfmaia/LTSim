@@ -55,8 +55,9 @@ export class ActionBarComponent implements OnInit {
   }
 
   beginSimulation(): void {
-    this.simulatorService.simulate(this.scope.stageHandler.stage.processes, 
-                                   this.scope.stageHandler.stage.relationships);
+    this.simulatorService.simulate(this.scope.stageHandler.stage.processes(), 
+                                   this.scope.stageHandler.stage.relationships)
+                         .subscribe(result => this.scope.stageHandler.stage.updateProcesses(result.processes));
   }
 
   getProcess(processId: number): Observable<Process> {

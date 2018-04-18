@@ -21,21 +21,18 @@ export class ProcessService {
   getProcessTypes(): Observable<ProcessType[]> {
     var endpoint = this.url + 'get_process_types';
     var result = this.http.get<ProcessType[]>(endpoint);
-    result.subscribe(r => console.log(r));
     return result;
   }
 
   getParametersFromModel(modelId: number): Observable<Parameter[]> {
     var endpoint = this.url + 'get_parameters_from_model/' + modelId.toString();
     var result = this.http.get<Parameter[]>(endpoint);
-    result.subscribe(r => console.log(r));
     return result;
   }
 
   getProcessById(processId: number): Observable<Process> {
     var endpoint = this.url + 'get_process_by_id/' + processId.toString();
     var result = this.http.get<Process>(endpoint);
-    result.subscribe(r => console.log(r));
     return result;
   }
 
@@ -45,7 +42,6 @@ export class ProcessService {
       model: model,
       processId: processId
     };
-    console.log(body);
     this.http.post(endpoint, body).subscribe();
   }
 }
