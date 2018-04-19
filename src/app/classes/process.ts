@@ -5,6 +5,7 @@ import { Model } from "./model";
 import { ProcessService } from "../services/process.service";
 import { ObservableInput, Observable } from "rxjs/Observable";
 import { timer } from "rxjs/observable/timer";
+import { Distribution } from "./distribution";
 
 export class Process {
   id: number;
@@ -72,6 +73,19 @@ export class Process {
     else {
       return false;
     }
+  }
+
+  modelStartup(): void {
+    this.model.parameters.forEach(function(p) {
+      if(p.type == 4 && !(p.value instanceof Distribution)) {
+        p.value = new Distribution(true, 10, 10, 100, false);
+      }
+    });
+    this.model.results.forEach(function(r) {
+      if(r.type == 4 && !(r.value instanceof Distribution)) {
+        r.value = new Distribution(true, 10, 10, 100, false);
+      }
+    });
   }
 
   

@@ -17,7 +17,6 @@ export class Distribution {
         this.startFromUp = startFromUp;
         this.array = new Array<Parameter>(size + 1);
         this.setKeysFromArray();
-        
     }
 
     setKeysFromArray(): void {

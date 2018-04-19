@@ -5,6 +5,7 @@ import { Process } from '../process';
 import { ContainerExtension } from './container-extension';
 import { ProcessContainer } from '../containers/process-container';
 import { Relationship } from '../relationship';
+import { Distribution } from '../distribution';
 
 
 

@@ -24,6 +24,7 @@ export class ProcessContainer extends ContainerExtension {
       this.setBitmap(this.process.imagePath);
       this.x = 20;
       this.y = 20;
+      this.process.modelStartup();
       this.addEventHandlersToProcessContainer(this);
       this.createBorders();
     }

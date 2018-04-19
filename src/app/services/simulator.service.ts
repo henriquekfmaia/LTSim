@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Process } from '../classes/process';
 import { Relationship } from '../classes/relationship';
 import { SimulationObject } from '../classes/simulation-object';
+import { Distribution } from '../classes/distribution';
 @Injectable()
 export class SimulatorService {
   private url = 'http://localhost:5000/';
@@ -19,9 +20,6 @@ export class SimulatorService {
     //   relationships: relationships
     // }
     var simulationObject = new SimulationObject(processes, relationships);
-    simulationObject.processes.forEach(function(p) {
-      console.log(p.model.results)
-    });
     var result = this.http.post<SimulationObject>(endpoint, simulationObject);
     return result;
   }
