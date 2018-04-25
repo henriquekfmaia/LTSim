@@ -33,7 +33,11 @@ export class Process {
     this.inputLimit = process.inputLimit;
     this.output = [];
     this.outputLimit = process.outputLimit;
-    this.models = process.models;
+    this.models = process.models.map(function(m) {
+      var newModel = new Model();
+      newModel.mapFromBaseObject(m);
+      return newModel;
+    });
     if(this.models.length > 0) {
       this.model = this.models[0];
     }

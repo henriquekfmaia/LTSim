@@ -47,6 +47,7 @@ export class ProcessEditorComponent implements OnInit {
   }
 
   selectModel(model: Model): void {
+    console.log(model);
     this.process.model = model;
   }
 

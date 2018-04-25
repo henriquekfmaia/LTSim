@@ -14,11 +14,11 @@ export class ScriptEditorComponent implements OnInit {
     
   }
 
-  validateScript(script: string): void {
-    console.log(this.model.scriptHead);
-    console.log(this.model.scriptBody);
-    console.log(this.model.scriptTail);
-    console.log(this.model);
+  validateScript(event): void {
+    // console.log(this.model.scriptHead);
+    // console.log(this.model.scriptBody);
+    // console.log(this.model.scriptTail);
+    // console.log(this.model.script);
   }
 
 }
