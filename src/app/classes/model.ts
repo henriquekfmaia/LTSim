@@ -9,35 +9,38 @@ export class Model {
   parameters: Array<Parameter>;
   results: Array<Parameter>;
 
-  private _script: string;
-  public _scriptHead: string;
-  private _scriptTail: string;
-  blank: string;
-  scriptBody: string;
-  get script(): string {
-    return this.scriptHead + this.scriptBody + this.scriptTail + this.blank;
+  public script: string;
+  public scriptHead: string;
+  public scriptBody: string;
+  public scriptTail: string;
+  public blank: string;
+  get Script(): string {
+    this.script = this.ScriptHead + this.scriptBody + this.ScriptTail + this.blank;
+    return this.script;
   };
-  set script(newStr: string) {
-    if(newStr.includes(this.scriptHead) && newStr.includes(this.scriptTail)) {
-      newStr = newStr.replace(this.scriptHead, String.Empty);
-      newStr = newStr.replace(this.scriptTail, String.Empty);
+  set Script(newStr: string) {
+    if(newStr.includes(this.ScriptHead) && newStr.includes(this.ScriptTail)) {
+      newStr = newStr.replace(this.ScriptHead, String.Empty);
+      newStr = newStr.replace(this.ScriptTail, String.Empty);
       this.scriptBody = newStr;
     }
     else {
       if(this.blank == '') { this.blank = ' '; }
       else { this.blank = '' }
     }
+    this.script = this.Script;
   }
-  get scriptHead(): string {
+  get ScriptHead(): string {
     var headText = '';
     var sb = new StringBuilder();
     sb.Append('function simulation_result = f(parameter_input)' + '\n');
     for(var i = 1; i <= this.parameters.length; i++) {
       sb.AppendFormat("{0} = parameter_input{{1}};\n", this.parameters[i-1].key, i.toString());
     }
-    return sb.ToString();
+    this.scriptHead = sb.ToString();
+    return this.scriptHead;
   };
-  get scriptTail(): string {
+  get ScriptTail(): string {
     var sb = new StringBuilder();
     sb.Append('\n');
     sb.Append('simulation_result = {');
@@ -46,7 +49,8 @@ export class Model {
     });
     sb.Append(String.Join(', ', resultKeys));
     sb.Append('};');
-    return sb.ToString();
+    this.scriptTail = sb.ToString();
+    return this.scriptTail; 
   };
 
   constructor() {
@@ -61,6 +65,9 @@ export class Model {
     this.name = model.name;
     this.parameters = model.parameters;
     this.results = model.results;
+    this.scriptHead = model.scriptHead;
+    this.scriptBody = model.scriptBody;
+    this.scriptTail = model.scriptTail;
   }
 
   getParameters(processService: ProcessService): void {
