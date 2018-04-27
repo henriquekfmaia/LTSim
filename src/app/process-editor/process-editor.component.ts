@@ -58,6 +58,7 @@ export class ProcessEditorComponent implements OnInit {
   }
 
   saveModel(model: Model, processId: number): void {
+    model.Script = model.Script;
     this.processService.saveModel(model, processId);
   }
 

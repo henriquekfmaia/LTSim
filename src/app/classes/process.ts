@@ -41,6 +41,10 @@ export class Process {
     if(this.models.length > 0) {
       this.model = this.models[0];
     }
+    else {
+      this.models = new Array<Model>();
+      this.models.push(new Model());
+    }
   }
 
   addInput(relationship: Relationship): void {
@@ -80,16 +84,21 @@ export class Process {
   }
 
   modelStartup(): void {
-    this.model.parameters.forEach(function(p) {
-      if(p.type == 4 && !(p.value instanceof Distribution)) {
-        p.value = new Distribution(true, 10, 10, 100, false);
-      }
-    });
-    this.model.results.forEach(function(r) {
-      if(r.type == 4 && !(r.value instanceof Distribution)) {
-        r.value = new Distribution(true, 10, 10, 100, false);
-      }
-    });
+    if(this.model) {
+      this.model.parameters.forEach(function(p) {
+        if(p.type == 4 && !(p.value instanceof Distribution)) {
+          p.value = new Distribution(true, 10, 10, 100, false);
+        }
+      });
+      this.model.results.forEach(function(r) {
+        if(r.type == 4 && !(r.value instanceof Distribution)) {
+          r.value = new Distribution(true, 10, 10, 100, false);
+        }
+      });
+    }
+    else {
+      this.model = new Model();
+    }
   }
 
   

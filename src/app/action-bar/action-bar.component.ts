@@ -9,6 +9,7 @@ import { ProcessType } from '../classes/process-type';
 import { PROCESS_TYPES } from '../mock/process-type-mock';
 import { ProcessService } from '../services/process.service';
 import { SimulatorService } from '../services/simulator.service';
+import { Model } from '../classes/model';
 
 @Component({
   selector: 'app-action-bar',
@@ -46,6 +47,7 @@ export class ActionBarComponent implements OnInit {
     this.state = ActionBarStateEnum.IDLE;
     this.getProcess(processContract.id).subscribe(p => {
       var process = new Process(p);
+      // if(process.models.length == 0) { process.models.push(new Model()); }
       this.scope.stageHandler.newProcess(process);
     });
   }
