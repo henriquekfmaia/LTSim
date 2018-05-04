@@ -117,7 +117,7 @@ export class StageExtension extends createjs.Stage {
 
   updateOnTick(): void {
     var stage = this;
-    createjs.Ticker.framerate = 60;
+    createjs.Ticker.framerate = 120;
     createjs.Ticker.addEventListener('tick', function(evt) {
       stage.update();
     });

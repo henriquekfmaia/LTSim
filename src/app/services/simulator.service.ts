@@ -7,14 +7,14 @@ import { Process } from '../classes/process';
 import { Relationship } from '../classes/relationship';
 import { SimulationObject } from '../classes/simulation-object';
 import { Distribution } from '../classes/distribution';
+import { EndpointProvider } from './endpoint';
 @Injectable()
 export class SimulatorService {
-  private url = 'http://localhost:5000/';
-  
+  private endpointProvider = new EndpointProvider();
   constructor(private http: HttpClient) { }
 
   simulate(processes: Process[], relationships: Relationship[]): Observable<SimulationObject> {
-    var endpoint = this.url + 'simulate';
+    var endpoint = this.endpointProvider.url + 'simulate';
     // var body = {
     //   processes: processes,
     //   relationships: relationships

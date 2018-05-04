@@ -15,7 +15,7 @@ export class ParameterEditorComponent implements OnInit {
   ngOnInit() {
   }
 
-  addParameter(parameter: Parameter): void {
+  addParameter(): void {
     var parameter = new Parameter();
     this.model.parameters.push(parameter);
   }

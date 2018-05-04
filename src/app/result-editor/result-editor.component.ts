@@ -15,7 +15,7 @@ export class ResultEditorComponent implements OnInit {
   ngOnInit() {
   }
 
-  addResult(result: Parameter): void {
+  addResult(): void {
     var result = new Parameter();
     this.model.results.push(result);
   }

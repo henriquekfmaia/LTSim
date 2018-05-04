@@ -9,35 +9,36 @@ import { PROCESSES_T1, PROCESSES_T2, PROCESSES_T3 } from '../mock/process-mock';
 import { PROCESS_TYPES } from '../mock/process-type-mock';
 import { Parameter } from '../classes/parameter';
 import { Model } from '../classes/model';
+import { EndpointProvider } from './endpoint';
 
 @Injectable()
 
 export class ProcessService {
-  private url = 'http://localhost:5000/';
+  private endpointProvider = new EndpointProvider();
 
   constructor(private http: HttpClient) { }
   // constructor() { }
   
   getProcessTypes(): Observable<ProcessType[]> {
-    var endpoint = this.url + 'get_process_types';
+    var endpoint = this.endpointProvider.url + 'get_process_types';
     var result = this.http.get<ProcessType[]>(endpoint);
     return result;
   }
 
   getParametersFromModel(modelId: number): Observable<Parameter[]> {
-    var endpoint = this.url + 'get_parameters_from_model/' + modelId.toString();
+    var endpoint = this.endpointProvider.url + 'get_parameters_from_model/' + modelId.toString();
     var result = this.http.get<Parameter[]>(endpoint);
     return result;
   }
 
   getProcessById(processId: number): Observable<Process> {
-    var endpoint = this.url + 'get_process_by_id/' + processId.toString();
+    var endpoint = this.endpointProvider.url + 'get_process_by_id/' + processId.toString();
     var result = this.http.get<Process>(endpoint);
     return result;
   }
 
   saveModel(model: Model, processId: number): void {
-    var endpoint = this.url + 'post_model';
+    var endpoint = this.endpointProvider.url + 'post_model';
     var body = {
       model: model,
       processId: processId
