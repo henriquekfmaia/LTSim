@@ -98,11 +98,14 @@ export class ProcessContainer extends ContainerExtension {
         });
     
         container.on("dblclick", function (evt: MouseEventExtension) {
+          console.log('dblclick');
           if(this.stage.creatingRelationship == false) {
+            console.log('start create relationship');
             this.stage.selectedContainer = this;
             this.stage.creatingRelationship = true;
           }
           else if(this.stage.creatingRelationship == true) {
+            console.log('end create relationship');
             this.addInputRelationship(this.stage.selectedContainer);
             // this.stage.selectedContainer = null;
             this.stage.creatingRelationship = false;

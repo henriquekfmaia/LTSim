@@ -34,6 +34,7 @@ export class ProcessService {
   getProcessById(processId: number): Observable<Process> {
     var endpoint = this.endpointProvider.url + 'get_process_by_id/' + processId.toString();
     var result = this.http.get<Process>(endpoint);
+    result.subscribe(r => console.log(r));
     return result;
   }
 
