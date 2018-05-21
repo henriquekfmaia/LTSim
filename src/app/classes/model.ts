@@ -1,6 +1,5 @@
 import { String, StringBuilder } from 'typescript-string-operations';
 import { Parameter } from "./parameter";
-import { OutputFlow } from "./output-flow";
 import { ProcessService } from "../services/process.service";
 import { timer } from "rxjs/observable/timer";
 
@@ -9,7 +8,6 @@ export class Model {
   name: string;
   parameters: Array<Parameter>;
   results: Array<Parameter>;
-  output_flows: Array<OutputFlow>;
 
   public script: string;
   public scriptHead: string;
@@ -36,7 +34,6 @@ export class Model {
     var headText = '';
     var sb = new StringBuilder();
     sb.Append('function simulation_result = f(parameter_input)' + '\n');
-    sb.AppendFormat('"{0}"\n', this.name);
     for(var i = 1; i <= this.parameters.length; i++) {
       sb.AppendFormat("{0} = parameter_input{{1}};\n", this.parameters[i-1].key, i.toString());
     }

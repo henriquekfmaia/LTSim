@@ -20,7 +20,6 @@ export class SimulatorService {
     //   relationships: relationships
     // }
     var simulationObject = new SimulationObject(processes, relationships);
-    console.log(simulationObject);
     var result = this.http.post<SimulationObject>(endpoint, simulationObject);
     return result;
   }
