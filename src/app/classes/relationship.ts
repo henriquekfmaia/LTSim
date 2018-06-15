@@ -18,6 +18,7 @@ export class Relationship {
         if(this.isRelationshipValid) {
             this.getPath(source, destination, stage);
         }
+        this.flow = new Flow();
     }
     
     setInputOutput(source: ProcessContainer, destination: ProcessContainer): Boolean {

@@ -6,6 +6,7 @@ import { ProcessService } from "../services/process.service";
 import { ObservableInput, Observable } from "rxjs/Observable";
 import { timer } from "rxjs/observable/timer";
 import { Distribution } from "./distribution";
+import { Flow } from "./flow";
 
 export class Process {
   id: number;
@@ -16,6 +17,7 @@ export class Process {
   // imageBlob: Blob;
   input: Relationship[];
   inputLimit: number;
+  inputFlow: Flow;
   output: Relationship[];
   outputLimit: number;
   stageId: number;
@@ -45,6 +47,7 @@ export class Process {
       this.models = new Array<Model>();
       this.models.push(new Model());
     }
+    this.inputFlow = new Flow();
   }
 
   addInput(relationship: Relationship): void {
