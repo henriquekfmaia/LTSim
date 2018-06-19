@@ -33,7 +33,13 @@ export class Model {
   get ScriptHead(): string {
     var headText = '';
     var sb = new StringBuilder();
-    sb.Append('function simulation_result = f(parameter_input)' + '\n');
+    sb.Append('function simulation_result = f(input_information)' + '\n');
+    sb.Append('input_flow = input_information{1};' + '\n');
+    sb.Append('water_flow = input_flow{1};' + '\n');
+    sb.Append('mass_flow = input_flow{2};' + '\n');
+    sb.Append('size_distribution = input_flow{3};' + '\n');
+    sb.Append('\n');
+    sb.Append('parameter_input = input_information{2};' + '\n');
     for(var i = 1; i <= this.parameters.length; i++) {
       sb.AppendFormat("{0} = parameter_input{{1}};\n", this.parameters[i-1].key, i.toString());
     }
