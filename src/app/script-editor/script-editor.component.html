@@ -1,4 +1,8 @@
 <div class="form-group" style="margin-top: 24px;">
   <label for="comment">Script Code:</label>
-  <textarea class="form-control" rows="20" id="comment" [(ngModel)]="model.Script" (input)="validateScript($event)" ></textarea>
+  <div *ngFor="let line of model.GetLines(model.ScriptHead)">
+    <label>{{ line }}</label>
+  </div>
+  <textarea class="form-control" rows="20" id="comment" [(ngModel)]="model.ScriptBody" (input)="validateScript($event)" ></textarea>
+  <label for="comment">{{ model.ScriptTail }}</label>
 </div>

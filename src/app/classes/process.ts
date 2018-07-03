@@ -1,11 +1,7 @@
-import { ProcessDetailComponent } from "../process-detail/process-detail.component";
-import { StageExtension } from "./extensions/stage-extension";
 import { Relationship } from "./relationship";
 import { Model } from "./model";
-import { ProcessService } from "../services/process.service";
-import { ObservableInput, Observable } from "rxjs/Observable";
-import { timer } from "rxjs/observable/timer";
 import { Distribution } from "./distribution";
+import { DefaultDistribution } from "./default/distribution-default";
 import { Flow } from "./flow";
 
 export class Process {
@@ -90,12 +86,12 @@ export class Process {
     if(this.model) {
       this.model.parameters.forEach(function(p) {
         if(p.type == 4 && !(p.value instanceof Distribution)) {
-          p.value = new Distribution(true, 10, 10, 100, false);
+          p.value = new DefaultDistribution();
         }
       });
       this.model.results.forEach(function(r) {
         if(r.type == 4 && !(r.value instanceof Distribution)) {
-          r.value = new Distribution(true, 10, 10, 100, false);
+          r.value = new DefaultDistribution();
         }
       });
     }

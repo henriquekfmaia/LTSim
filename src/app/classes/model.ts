@@ -95,4 +95,8 @@ export class Model {
       return this.parameters;
     }
   }
+  public GetLines(str: string): string[] {
+    var array = str.split('\n');
+    return array;
+  }
 }

@@ -1,4 +1,5 @@
 import { Parameter } from './parameter';
+import { DefaultDistribution } from './default/distribution-default';
 
 export class Flow {
     waterFlow: Parameter;
@@ -49,5 +50,6 @@ export class Flow {
         this.sizeDistribution.name = 'Size Distribution';
         this.sizeDistribution.unit = 'mm';
         this.sizeDistribution.type = 4;
+        this.sizeDistribution.value = new DefaultDistribution();
     }
 }
