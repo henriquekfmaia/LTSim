@@ -4,5 +4,8 @@
     <label>{{ line }}</label>
   </div>
   <textarea class="form-control" rows="20" id="comment" [(ngModel)]="model.ScriptBody" (input)="validateScript($event)" ></textarea>
-  <label for="comment">{{ model.ScriptTail }}</label>
+  <div *ngFor="let line of model.GetLines(model.ScriptTail)">
+    <label>{{ line }}</label>
+  </div>
+  <!-- <label for="comment">{{ model.ScriptTail }}</label> -->
 </div>

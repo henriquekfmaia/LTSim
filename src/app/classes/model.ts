@@ -8,6 +8,7 @@ export class Model {
   name: string;
   parameters: Array<Parameter>;
   results: Array<Parameter>;
+  outputLimit: number;
 
   public script: string;
   public scriptHead: string;
@@ -49,12 +50,21 @@ export class Model {
   get ScriptTail(): string {
     var sb = new StringBuilder();
     sb.Append('\n');
-    sb.Append('simulation_result = {');
+    sb.Append('output_flow = {}\n');
+    for(var i = 1; i <= this.outputLimit; i++) {
+      sb.AppendFormat("output_flow_{0} = {};\n", i.toString());
+      sb.AppendFormat("output_flow_{0}{{1}} = out_water_flow_{0};\n", i.toString(), (1).toString());
+      sb.AppendFormat("output_flow_{0}{{1}} = out_mass_flow_{0};\n", i.toString(), (2).toString());
+      sb.AppendFormat("output_flow_{0}{{1}} = out_size_distribution_{0};\n", i.toString(), (3).toString());
+      sb.AppendFormat("output_flow{{0}} = output_flow_{0};\n", i.toString());
+    }
+    sb.Append('output_parameters = {');
     var resultKeys = this.results.map(function(r) {
       return String.Format('{{0}}', r.key);
     });
     sb.Append(String.Join(', ', resultKeys));
-    sb.Append('};');
+    sb.Append('};\n');
+    sb.Append('simulation_result = {{output_flow}, {output_parameters}};');
     this.scriptTail = sb.ToString();
     return this.scriptTail; 
   };

@@ -1,8 +1,6 @@
-import { Process } from './process';
 import { RelationshipLineProperties } from './graphs/line-properties/relationship-line';
 import { ProcessContainer } from './containers/process-container';
 import { StageExtension } from './extensions/stage-extension';
-import { StageHandler } from './stage-handler';
 import { Flow } from './flow';
 
 export class Relationship {

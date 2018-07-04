@@ -9,8 +9,6 @@ export class Process {
   name: string;
   processTypeId: number;
   imagePath: string;
-  // imageHex: string;
-  // imageBlob: Blob;
   input: Relationship[];
   inputLimit: number;
   inputFlow: Flow;
@@ -25,8 +23,6 @@ export class Process {
     this.name = process.name;
     this.processTypeId = process.processTypeId;
     this.imagePath = process.imagePath;
-    // this.imageHex = process.imageHex;
-    // this.imageBlob = new Blob([this.hexStringToByte(this.imageHex)], new MyBlobPropertyBag('image/png'));
     this.input = [];
     this.inputLimit = process.inputLimit;
     this.output = [];
@@ -34,6 +30,7 @@ export class Process {
     this.models = process.models.map(function(m) {
       var newModel = new Model();
       newModel.mapFromBaseObject(m);
+      newModel.outputLimit = process.outputLimit;
       return newModel;
     });
     if(this.models.length > 0) {

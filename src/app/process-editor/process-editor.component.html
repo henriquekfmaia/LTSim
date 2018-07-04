@@ -17,6 +17,14 @@
       <label for="processName">Name</label>
       <input type="text" class="form-control mx-sm-4 mb-4" id="processName" 
       placeholder="{{process.name}}" style="margin: 24px;" readonly>
+
+      <label for="processInput">Inputs</label>
+      <input type="text" class="form-control mx-sm-4 mb-4" id="inputCount" 
+      placeholder="{{process.inputLimit}}" style="margin: 24px;" readonly>
+      
+      <label for="processOutput">Outputs</label>
+      <input type="text" class="form-control mx-sm-4 mb-4" id="outputCount" 
+      placeholder="{{process.outputLimit}}" style="margin: 24px;" readonly>
   </form>
   <br/>
   <div ngbDropdown class="row d-inline-block">
