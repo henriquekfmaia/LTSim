@@ -26,7 +26,9 @@ export class StageHandler {
     this.stage.addChild(container);
     container.start(process);
     this.stage.addProcess(process);
-    
+    process.setInOutRelationships();
+    this.stage.addRelationships(process.input);
+    this.stage.addRelationships(process.output);  
   }
 
   deleteElement(): void {

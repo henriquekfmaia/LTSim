@@ -97,6 +97,19 @@ export class Process {
     }
   }
 
+  setInOutRelationships(): void {
+    if(this.inputLimit == 0) {
+      this.input = new Array<Relationship>(1);
+      this.input[0] = new Relationship();
+      this.input[0].setOnlyDestination(this);
+    }
+    if(this.outputLimit == 0) {
+      this.output = new Array<Relationship>(1);
+      this.output[0] = new Relationship();
+      this.output[0].setOnlySource(this);
+    }
+  }
+
   
 
   hexStringToByte(str: string): Uint8Array {

@@ -3,6 +3,7 @@ import { ProcessContainer } from './containers/process-container';
 import { StageExtension } from './extensions/stage-extension';
 import { Flow } from './flow';
 import { BorderPoint } from './graphs/point/border-point';
+import { Process } from './process';
 
 export class Relationship {
     sourceId: number;
@@ -11,20 +12,21 @@ export class Relationship {
     stageId: number;
     flow: Flow;
     
-    // private _sourcePoint: BorderPoint;
-    // private _destinationPoint: BorderPoint;
+    constructor() {
+        this.flow = new Flow();
+    }
 
-    // get SourcePoint(): BorderPoint { return this._sourcePoint; }
-    // get DestinationPoint(): BorderPoint { return this._destinationPoint; }
+    setOnlySource(sourceProcess: Process) {
+        this.sourceId = sourceProcess.stageId;
+        this.destinationId = 0;
+    }
 
-    // set SourcePoint(point: BorderPoint) { this._sourcePoint = point; }
-    // set DestinationPoint(point: BorderPoint) { this._destinationPoint = point; }
-    
-    constructor(sourcePoint: BorderPoint, destinationPoint: BorderPoint) {
-        var stage = sourcePoint.stage as StageExtension;
-        // this.SourcePoint = sourcePoint;
-        // this.DestinationPoint = destinationPoint;
+    setOnlyDestination(destinationProcess: Process) {
+        this.sourceId = 0;
+        this.destinationId = destinationProcess.stageId;
+    }
 
+    setPoints(sourcePoint: BorderPoint, destinationPoint: BorderPoint): void {
         var sourceContainer = sourcePoint.parent as ProcessContainer;
         this.sourceId = sourceContainer.process.stageId;
 
@@ -34,7 +36,6 @@ export class Relationship {
         sourceContainer.process.addOutput(this, sourcePoint.arrayId);
         destinationContainer.process.addOutput(this, destinationPoint.arrayId);
 
-        this.flow = new Flow();
         this.getPath(sourcePoint, destinationPoint);
     }
     

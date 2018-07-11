@@ -103,7 +103,8 @@ export class BorderPoint extends Point {
     createRelationship(source: BorderPoint, destination: BorderPoint): void {
         if(this.validateRelationship(source, destination)) {
             var stage = source.parent.stage as StageExtension;
-            var relationship = new Relationship(source, destination);
+            var relationship = new Relationship();
+            relationship.setPoints(source, destination);
             stage.addRelationship(relationship);
         }
     }

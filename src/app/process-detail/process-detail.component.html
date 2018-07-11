@@ -21,6 +21,12 @@
 </div>
 <br/>
 <ngb-tabset *ngIf="process.model">
+    <ng-tab title="Input" *ngIf="process.inputLimit == 0" >
+        <ng-template ngbTabContent>
+            <br/>
+            <app-input-detail [model]="process"></app-input-detail>
+        </ng-template>
+    </ng-tab>
     <ngb-tab title="Parameters" *ngIf="process.model.parameters">
       <ng-template ngbTabContent>
         <br/>

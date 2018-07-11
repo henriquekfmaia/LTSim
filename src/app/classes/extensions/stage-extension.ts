@@ -60,6 +60,14 @@ export class StageExtension extends createjs.Stage {
     this.relationships.push(relationship);
   }
 
+  addRelationships(relationships: Array<Relationship>): void {
+    for(var i = 0; i < relationships.length; i++) {
+      if(relationships[i] && relationships[i] != null) {
+        this.addRelationship(relationships[i]);
+      }
+    }
+  }
+
   removeRelationship(relationship: Relationship): void {
     var index = this.relationships.indexOf(relationship);
     this.relationships.splice(index, 1);
