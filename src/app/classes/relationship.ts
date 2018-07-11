@@ -34,7 +34,7 @@ export class Relationship {
         this.destinationId = destinationContainer.process.stageId;
 
         sourceContainer.process.addOutput(this, sourcePoint.arrayId);
-        destinationContainer.process.addOutput(this, destinationPoint.arrayId);
+        destinationContainer.process.addInput(this, destinationPoint.arrayId);
 
         this.getPath(sourcePoint, destinationPoint);
     }
