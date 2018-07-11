@@ -50,5 +50,7 @@ export class ContainerBorderLine extends ContainerExtension {
         this.properties.drawLine();
     }
 
-    
+    deleteSelf(): void {
+        
+    }    
 }

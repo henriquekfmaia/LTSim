@@ -5,14 +5,16 @@ import { Process } from '../process';
 import { ContainerExtension } from './container-extension';
 import { ProcessContainer } from '../containers/process-container';
 import { Relationship } from '../relationship';
-import { Distribution } from '../distribution';
+import { BorderPoint } from '../graphs/point/border-point';
+import { CursorLineProperties } from '../graphs/line-properties/cursor-line';
 
 
 
 export class StageExtension extends createjs.Stage {
   private _onShowDetail = new SimpleEventDispatcher<ProcessContainer>();
-  selectedContainer: ProcessContainer;
+  selectedElement: ContainerExtension;
   creatingRelationship: boolean;
+  creatingRelationshipLine: CursorLineProperties;
 
   // processes: Process[];
   processContainers(): ProcessContainer[] {
@@ -40,6 +42,7 @@ export class StageExtension extends createjs.Stage {
     // this.processes = [];
     this.relationships = [];
     this.updateOnTick();
+    this.createRelationshipLineIndicator();
   }
 
   addProcess(process: Process): void {
@@ -62,9 +65,28 @@ export class StageExtension extends createjs.Stage {
     this.relationships.splice(index, 1);
   }
 
-  setSelectedContainer(processContainer: ProcessContainer): void {
-    this.selectedContainer = processContainer;
-    this.selectedContainer.onShowDetail.one(s => this._onShowDetail.dispatch(s));
+  selectElement(element: ContainerExtension): void {
+    this.selectedElement = element;
+  }
+
+  selectBorderPoint(borderPoint: BorderPoint): void {
+    this.selectElement(borderPoint);
+    this.creatingRelationship = (borderPoint != null);
+    if(this.creatingRelationship) {
+      this.createRelationshipLineIndicator();
+      var absolutePosition = borderPoint.getAbs();
+      this.creatingRelationshipLine.updateStart(absolutePosition.x, absolutePosition.y);
+      this.creatingRelationshipLine.updateEnd(absolutePosition.x, absolutePosition.y);
+    }
+    else {
+      this.deleteRelationshipLineIndicator();
+    }
+    
+  }
+
+  selectProcessContainer(processContainer: ProcessContainer): void {
+    this.selectElement(processContainer);
+    (this.selectedElement as ProcessContainer).onShowDetail.one(s => this._onShowDetail.dispatch(s));
   }
 
   public get onShowDetail() {
@@ -134,5 +156,15 @@ export class StageExtension extends createjs.Stage {
         }
       });
     });
+  }
+  
+  createRelationshipLineIndicator(): void {
+    this.creatingRelationshipLine = new CursorLineProperties();
+    this.addChild(this.creatingRelationshipLine.shape);
+  }
+
+  deleteRelationshipLineIndicator(): void {
+    this.removeChild(this.creatingRelationshipLine.shape);
+    this.creatingRelationshipLine = null;
   }
 }

@@ -1,6 +1,6 @@
 import * as createjs from 'createjs-module';
 import { twoDVector } from '../graphs/two-d-vector';
-export class ContainerExtension extends createjs.Container {
+export abstract class ContainerExtension extends createjs.Container {
     _offset: twoDVector;
     _abs: twoDVector;
     _isContainerExtension: boolean;
@@ -34,4 +34,6 @@ export class ContainerExtension extends createjs.Container {
         var absY = offset.y + this.y;
         return new twoDVector([absX, absY]);
     }
+
+    abstract deleteSelf(): void;
 }

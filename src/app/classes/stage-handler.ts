@@ -30,9 +30,8 @@ export class StageHandler {
   }
 
   deleteElement(): void {
-    this.stage.removeChild(this.stage.selectedContainer);
-    this.stage.removeProcess(this.stage.selectedContainer.process);
-    this.stage.selectedContainer = null;
+    this.stage.selectedElement.deleteSelf();
+    this.stage.selectElement(null);
   }
 
   public get onShowDetail() {

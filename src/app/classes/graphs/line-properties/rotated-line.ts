@@ -30,4 +30,8 @@ export class RotatedLineProperties extends WfLineProperties {
         var endMat = mathjs.add(start.array, distance.array);
         return new twoDVector(endMat as [number, number]);
     }
+
+    deleteSelf(): void {
+        
+    }   
 }

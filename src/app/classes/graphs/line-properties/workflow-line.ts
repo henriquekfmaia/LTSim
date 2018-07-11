@@ -17,4 +17,17 @@ export class WfLineProperties extends ContainerExtension {
                            .moveTo(this.start.x, this.start.y)
                            .lineTo(this.end.x, this.end.y);
     }
+
+    checkIfLineIsValid(): Boolean {
+        if (this.start && this.start.x && this.start.y && this.end && this.end.x && this.end.y) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    deleteSelf(): void {
+        
+    }   
 }

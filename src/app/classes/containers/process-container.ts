@@ -27,12 +27,9 @@ export class ProcessContainer extends ContainerExtension {
       this.process.modelStartup();
       this.addEventHandlersToProcessContainer(this);
       this.createBorders();
-    }
-    
-    setBitmap_a(imageBlob: Blob) {
-      var a = createImageBitmap(imageBlob);
-      var bitmap = new createjs.Bitmap(a);
-      this.addChild(bitmap);
+      timer(50).subscribe(val => {
+        this.createRelationshipPoints();
+      });
     }
 
     setBitmap(path: string) {
@@ -40,21 +37,35 @@ export class ProcessContainer extends ContainerExtension {
       this.addChild(bitmap);
     }
 
-    addInputRelationship(sourceContainer: ProcessContainer): void {
-      var stage = this.stage as StageExtension;
-      var relationship = new Relationship(sourceContainer, this, stage);
-      if(relationship.isRelationshipValid){
-        stage.addRelationship(relationship);
-      }
-      else {
-        relationship = null;
+    createRelationshipPoints(): void {
+      this.createInputPoints();
+      this.createOutputPoints();
+    }
+
+    createInputPoints(): void {
+      var isInput = true;
+      var posX = 0;
+      for(var i = 0; i < this.process.inputLimit; i++) {
+        var posY = (i + 1)/(this.process.inputLimit + 1);
+        this.createPoint(i, isInput, posX, posY);
       }
     }
 
-    createPoint(color = 'white'): BorderPoint {
-      var point = new BorderPoint(color);
+    createOutputPoints(): void {
+      var isInput = false;
+      var posX = 1;
+      for(var i = 0; i < this.process.outputLimit; i++) {
+        var posY = (i + 1)/(this.process.outputLimit + 1);
+        this.createPoint(i, isInput, posX, posY);
+      }
+    }
+
+    createPoint(arrayId: number, isInput: Boolean, posX: number, posY: number): BorderPoint {
+      var point = new BorderPoint(arrayId, isInput);
       this.addChild(point);
-      // this.addChild(point.shape);
+      timer(50).subscribe(val => {
+        point.setPosition(posX, posY);
+      });
       return point;
     }
 
@@ -75,18 +86,14 @@ export class ProcessContainer extends ContainerExtension {
           if(evt.nativeEvent.button == 0
           && this.stage.creatingRelationship == false
           && evt.target.parent == container) {
-            this.stage.selectedContainer = this;
+            this.stage.selectElement(this);
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
           }
           else if(evt.nativeEvent.button == 2) {
             var stage = this.stage as StageExtension;
-            stage.setSelectedContainer(this);
+            stage.selectProcessContainer(this);
             this._onShowDetail.dispatch(this);
           }
-        });
-    
-        container.on("mouseup", function (evt: MouseEventExtension) {
-          this.offset = undefined;
         });
 
         // the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
@@ -99,19 +106,12 @@ export class ProcessContainer extends ContainerExtension {
     
         container.on("dblclick", function (evt: MouseEventExtension) {
           if(this.stage.creatingRelationship == false) {
-            this.stage.selectedContainer = this;
+            this.stage.selselectedElement(this);
             this.stage.creatingRelationship = true;
           }
           else if(this.stage.creatingRelationship == true) {
-            this.addInputRelationship(this.stage.selectedContainer);
-            // this.stage.selectedContainer = null;
+            this.addInputRelationship(this.stage.selectedElement);
             this.stage.creatingRelationship = false;
-          }
-          if(this.stage.boo == false) {
-            this.stage.boo = true;
-          }
-          else {
-            this.stage.boo = false;
           }
         });
     }
@@ -120,4 +120,9 @@ export class ProcessContainer extends ContainerExtension {
       return this._onShowDetail.asEvent();
     }
 
+    deleteSelf(): void {
+      var stage = this.stage as StageExtension;
+      stage.removeChild(this);
+      stage.removeProcess(this.process);
+    }
 }

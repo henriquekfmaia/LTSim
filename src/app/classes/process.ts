@@ -9,10 +9,10 @@ export class Process {
   name: string;
   processTypeId: number;
   imagePath: string;
-  input: Relationship[];
+  input: Array<Relationship>;
   inputLimit: number;
   inputFlow: Flow;
-  output: Relationship[];
+  output: Array<Relationship>;
   outputLimit: number;
   stageId: number;
   model: Model;
@@ -23,10 +23,10 @@ export class Process {
     this.name = process.name;
     this.processTypeId = process.processTypeId;
     this.imagePath = process.imagePath;
-    this.input = [];
     this.inputLimit = process.inputLimit;
-    this.output = [];
+    this.input = new Array<Relationship>(this.inputLimit);
     this.outputLimit = process.outputLimit;
+    this.output = new Array<Relationship>(this.outputLimit);
     this.models = process.models.map(function(m) {
       var newModel = new Model();
       newModel.mapFromBaseObject(m);
@@ -43,15 +43,15 @@ export class Process {
     this.inputFlow = new Flow();
   }
 
-  addInput(relationship: Relationship): void {
-    if(this.checkInputLimit()) {
-      this.input.push(relationship);
+  addInput(relationship: Relationship, index: number): void {
+    if(index < this.inputLimit) {
+      this.input[index] = relationship;
     }
   }
 
-  addOutput(relationship: Relationship): void {
-    if(this.checkOutputLimit()) {
-      this.output.push(relationship);
+  addOutput(relationship: Relationship, index: number): void {
+    if(index < this.outputLimit) {
+      this.output[index] = relationship;
     }
   }
 

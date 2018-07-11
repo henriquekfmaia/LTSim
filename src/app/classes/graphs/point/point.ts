@@ -8,4 +8,8 @@ export class Point extends ContainerExtension {
         super();
         this.shape = new createjs.Shape();
     }
+
+    deleteSelf(): void {
+        
+    }   
 }
