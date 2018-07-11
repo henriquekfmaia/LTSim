@@ -91,6 +91,7 @@ export class ProcessContainer extends ContainerExtension {
           }
           else if(evt.nativeEvent.button == 2) {
             var stage = this.stage as StageExtension;
+            this.offset = null;
             stage.selectProcessContainer(this);
             this._onShowDetail.dispatch(this);
           }
@@ -98,7 +99,7 @@ export class ProcessContainer extends ContainerExtension {
 
         // the pressmove event is dispatched when the mouse moves after a mousedown on the target until the mouse is released.
         container.on("pressmove", function (evt: MouseEventExtension) {
-          if(this.offset && evt.target.parent == container){
+          if(this.offset && this.offset != null && evt.target.parent == container){
               this.x = evt.stageX + this.offset.x;
               this.y = evt.stageY + this.offset.y;
           }
