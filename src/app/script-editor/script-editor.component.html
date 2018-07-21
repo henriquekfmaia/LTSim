@@ -3,7 +3,7 @@
   <div *ngFor="let line of model.GetLines(model.ScriptHead)">
     <label>{{ line }}</label>
   </div>
-  <textarea class="form-control" rows="20" id="comment" [(ngModel)]="model.ScriptBody" (input)="validateScript($event)" ></textarea>
+  <textarea class="form-control" rows="20" id="comment" [(ngModel)]="model.scriptBody" (input)="validateScript($event)" ></textarea>
   <div *ngFor="let line of model.GetLines(model.ScriptTail)">
     <label>{{ line }}</label>
   </div>
