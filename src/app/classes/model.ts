@@ -32,7 +32,6 @@ export class Model {
     this.script = this.Script;
   }
   get ScriptHead(): string {
-    var headText = '';
     var sb = new StringBuilder();
     sb.Append('function simulation_result = f(input_information)' + '\n');
     sb.Append('input_flow = input_information{1};' + '\n');
@@ -50,8 +49,9 @@ export class Model {
   get ScriptTail(): string {
     var sb = new StringBuilder();
     sb.Append('\n');
-    sb.Append('output_flow = {}\n');
-    for(var i = 1; i <= this.outputLimit; i++) {
+    sb.Append('output_flow = {};\n');
+    var outputLimit = Math.max(this.outputLimit, 1);
+    for(var i = 1; i <= outputLimit; i++) {
       sb.AppendFormat("output_flow_{0} = {};\n", i.toString());
       sb.AppendFormat("output_flow_{0}{{1}} = out_water_flow_{0};\n", i.toString(), (1).toString());
       sb.AppendFormat("output_flow_{0}{{1}} = out_mass_flow_{0};\n", i.toString(), (2).toString());
@@ -60,11 +60,11 @@ export class Model {
     }
     sb.Append('output_parameters = {');
     var resultKeys = this.results.map(function(r) {
-      return String.Format('{{0}}', r.key);
+      return String.Format('{0}', r.key);
     });
     sb.Append(String.Join(', ', resultKeys));
     sb.Append('};\n');
-    sb.Append('simulation_result = {{output_flow}, {output_parameters}};');
+    sb.Append('simulation_result = {output_flow, output_parameters};');
     this.scriptTail = sb.ToString();
     return this.scriptTail; 
   };
