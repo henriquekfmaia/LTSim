@@ -7,6 +7,8 @@ import { ProcessContainer } from '../containers/process-container';
 import { Relationship } from '../relationship';
 import { BorderPoint } from '../graphs/point/border-point';
 import { CursorLineProperties } from '../graphs/line-properties/cursor-line';
+import { SimulationObject } from '../simulation-object';
+import { npost } from '../../../../node_modules/@types/q';
 
 
 
@@ -29,6 +31,7 @@ export class StageExtension extends createjs.Stage {
       return container;
     });
   }
+
   processes(): Process[] {
     return this.processContainers().map(function(container) {
       return container.process;
@@ -153,9 +156,16 @@ export class StageExtension extends createjs.Stage {
     });
   }
   
+  setSimulationResults(result: SimulationObject): void {
+    var newProcesses = result.processes;
+    var newRelationships = result.relationships;
+    this.updateProcesses(newProcesses);
+    this.updateRelationships(newRelationships);
+  }
+  
   updateProcesses(newProcesses: Process[]): void{
     this.processContainers().forEach(function(c) {
-      c.process = newProcesses.find(function(np) {
+      var result = newProcesses.find(function(np) {
         if(np.stageId == c.process.stageId) {
           return true;
         }
@@ -163,6 +173,21 @@ export class StageExtension extends createjs.Stage {
           return false;
         }
       });
+      c.process.setSimulationResult(result);
+    });
+  }
+
+  updateRelationships(newRelationships: Relationship[]): void {
+    this.relationships.forEach(function(r) {
+      var result = newRelationships.find(function(nr) {
+        if(nr.stageId == r.stageId) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+      r.setSimulationResult(result);
     });
   }
   

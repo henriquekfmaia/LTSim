@@ -45,4 +45,8 @@ export class Relationship {
         line.endContainer = destinationPoint;
         sourcePoint.stage.addChild(line.shape);
     }
+
+    setSimulationResult(result: Relationship) : void {
+        
+    }
 }
