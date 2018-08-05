@@ -14,11 +14,4 @@ export class ScriptEditorComponent implements OnInit {
     
   }
 
-  validateScript(event): void {
-    // console.log(this.model.scriptHead);
-    // console.log(this.model.scriptBody);
-    // console.log(this.model.scriptTail);
-    // console.log(this.model.script);
-  }
-
 }

@@ -1,5 +1,4 @@
 import * as createjs from 'createjs-module';
-import { timer } from 'rxjs/observable/timer';
 import { SignalDispatcher, SimpleEventDispatcher, EventDispatcher } from "strongly-typed-events";
 
 import { Process } from './process';

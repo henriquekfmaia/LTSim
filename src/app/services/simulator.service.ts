@@ -20,15 +20,9 @@ export class SimulatorService {
 
   simulate(processes: Process[], relationships: Relationship[]): Observable<SimulationObject> {
     var endpoint = this.endpointProvider.url + 'simulate';
-    // var body = {
-    //   processes: processes,
-    //   relationships: relationships
-    // }
     var simulationObject = new SimulationObject(processes, relationships);
     var result = this.http.post<SimulationObject>(endpoint, simulationObject);
-    result.subscribe(r => console.log(r));
     result.toPromise().catch(function(error) {
-      console.log(error);
       new Toast(error.error.message, Toast.TYPE_ERROR, Toast.TIME_LONG);
     });
     return result;

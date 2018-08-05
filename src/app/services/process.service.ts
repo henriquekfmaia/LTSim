@@ -25,12 +25,6 @@ export class ProcessService {
     return result;
   }
 
-  getParametersFromModel(modelId: number): Observable<Parameter[]> {
-    var endpoint = this.endpointProvider.url + 'get_parameters_from_model/' + modelId.toString();
-    var result = this.http.get<Parameter[]>(endpoint);
-    return result;
-  }
-
   getProcessById(processId: number): Observable<Process> {
     var endpoint = this.endpointProvider.url + 'get_process_by_id/' + processId.toString();
     var result = this.http.get<Process>(endpoint);

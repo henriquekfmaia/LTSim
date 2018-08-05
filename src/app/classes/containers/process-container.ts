@@ -1,5 +1,7 @@
 import * as createjs from 'createjs-module';
 import { timer } from 'rxjs/observable/timer';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs/observable/of';
 import { SignalDispatcher, SimpleEventDispatcher, EventDispatcher } from "strongly-typed-events";
 
 import { Process } from '../process';
@@ -9,6 +11,7 @@ import { StageExtension } from '../extensions/stage-extension';
 import { Relationship } from '../relationship';
 import { BorderPoint } from '../graphs/point/border-point';
 import { ContainerExtension } from '../extensions/container-extension';
+import { resolve } from '../../../../node_modules/@types/q';
 
 export class ProcessContainer extends ContainerExtension {
     private _onShowDetail = new SimpleEventDispatcher<ProcessContainer>();
@@ -26,8 +29,8 @@ export class ProcessContainer extends ContainerExtension {
       this.y = 20;
       this.process.modelStartup();
       this.addEventHandlersToProcessContainer(this);
-      this.createBorders();
-      timer(50).subscribe(val => {
+      var borders = this.createBorders();
+      borders.then(v => {
         this.createRelationshipPoints();
       });
     }
@@ -63,22 +66,24 @@ export class ProcessContainer extends ContainerExtension {
     createPoint(arrayId: number, isInput: Boolean, posX: number, posY: number): BorderPoint {
       var point = new BorderPoint(arrayId, isInput);
       this.addChild(point);
-      timer(50).subscribe(val => {
-        point.setPosition(posX, posY);
-      });
+      point.setPosition(posX, posY);
       return point;
     }
 
-    createBorders(): void {
-      var bounds = this.getBounds();
-      if(bounds && bounds != null) {
-        this.borders = new Borders(this);
-      }
-      else {
-        timer(50).subscribe(val => {
-          this.createBorders()
-        });
-      }
+    createBorders(): Promise<any> {
+      var p = new Promise((resolve, reject) => {
+        var bounds = this.getBounds();
+        if(bounds && bounds != null) {
+          this.borders = new Borders(this);
+          resolve();
+        }
+        else {
+          timer(50).subscribe(val => {
+           resolve(this.createBorders());
+          });
+        }
+      });
+      return p;
     }
 
     addEventHandlersToProcessContainer(container: ProcessContainer): void {

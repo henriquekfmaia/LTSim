@@ -49,17 +49,14 @@ export class BorderPoint extends Point {
             if(evt.target.parent == container) {
                 var stage = container.parent.stage as StageExtension;
                 stage.selectBorderPoint(this);
-                console.log('mousedown');
             }
         });
         
         container.on('pressup', function(evt: MouseEventExtension) {
             if(evt.target.parent == container) {
                 var stage = container.parent.stage as StageExtension;
-                console.log('pressup');
                 if(container.isInput) {
                     this.createRelationship(container.targetBorderPoint, container);
-                    console.log('creating relationship')                    
                 }
                 else {
                     this.createRelationship(container, container.targetBorderPoint);
@@ -74,7 +71,6 @@ export class BorderPoint extends Point {
                 var selectedPoint = stage.selectedElement as BorderPoint;
                 if(selectedPoint && (selectedPoint.targetBorderPoint || selectedPoint.targetBorderPoint == null)) {
                     selectedPoint.targetBorderPoint = container;
-                    console.log('mouseover');
                 }
             }
         });
@@ -85,7 +81,6 @@ export class BorderPoint extends Point {
                 var selectedPoint = stage.selectedElement as BorderPoint;
                 if(selectedPoint && (selectedPoint.targetBorderPoint || selectedPoint.targetBorderPoint == null)) {
                     selectedPoint.targetBorderPoint = container;
-                    console.log('mouseout');
                 }
             }
         });
@@ -96,7 +91,6 @@ export class BorderPoint extends Point {
             if(selectedPoint && (selectedPoint.targetBorderPoint || selectedPoint.targetBorderPoint == null)) {
                 stage.creatingRelationshipLine.updateEnd(evt.rawX, evt.rawY);
             }
-            console.log('move');
         });
     }
 
