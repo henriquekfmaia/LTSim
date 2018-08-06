@@ -6,9 +6,9 @@ import { ActionBarStateEnum } from './action-bar-state';
 import { Scope } from '../classes/scope';
 import { Process } from '../classes/process';
 import { ProcessType } from '../classes/process-type';
-import { PROCESS_TYPES } from '../mock/process-type-mock';
 import { ProcessService } from '../services/process.service';
 import { SimulatorService } from '../services/simulator.service';
+import { Toast } from "toaster-js";
 
 @Component({
   selector: 'app-action-bar',
@@ -55,6 +55,7 @@ export class ActionBarComponent implements OnInit {
   }
 
   beginSimulation(): void {
+    new Toast('Simulation start', Toast.TYPE_INFO, Toast.TIME_LONG);
     this.simulatorService.simulate(this.scope.stageHandler.stage.processes(), 
                                    this.scope.stageHandler.stage.relationships)
                          .subscribe(result => this.scope.stageHandler.stage.setSimulationResults(result));

@@ -22,7 +22,12 @@ export class SimulatorService {
     var endpoint = this.endpointProvider.url + 'simulate';
     var simulationObject = new SimulationObject(processes, relationships);
     var result = this.http.post<SimulationObject>(endpoint, simulationObject);
-    result.toPromise().catch(function(error) {
+
+    result.toPromise().then(function (r) {
+      console.log(r);
+      new Toast('Simulation successful', Toast.TYPE_DONE, Toast.TIME_LONG);
+    })
+    .catch(function(error) {
       new Toast(error.error.message, Toast.TYPE_ERROR, Toast.TIME_LONG);
     });
     return result;

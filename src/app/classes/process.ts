@@ -3,6 +3,7 @@ import { Model } from "./model";
 import { Distribution } from "./distribution";
 import { DefaultDistribution } from "./default/distribution-default";
 import { Flow } from "./flow";
+import { Parameter } from "./parameter";
 
 export class Process {
   id: number;
@@ -111,7 +112,26 @@ export class Process {
   }
 
   setSimulationResult(result: Process): void {
-    
+    this.setInputResult(result.input);
+    this.setOutputResult(result.output);
+    this.setSimulationResults(result.model.results);
   }
-  
+
+  setInputResult(inputResult: Array<Relationship>): void {
+    for(var i = 0; i < this.input.length; i++) {
+      this.input[i].flow = inputResult[i].flow;
+    }
+  }
+
+  setOutputResult(outputResult: Array<Relationship>): void {
+    for(var i = 0; i < this.output.length; i++) {
+      this.output[i].flow = outputResult[i].flow;
+    }
+  }
+
+  setSimulationResults(results: Array<Parameter>): void {
+    for(var i = 0; i < this.model.results.length; i++) {
+      this.model.results[i].value = results[i].value;
+    }
+  }
 }

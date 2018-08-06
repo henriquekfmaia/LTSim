@@ -10,6 +10,7 @@ import { PROCESS_TYPES } from '../mock/process-type-mock';
 import { Parameter } from '../classes/parameter';
 import { Model } from '../classes/model';
 import { EndpointProvider } from './endpoint';
+import { Toast } from "toaster-js";
 
 @Injectable()
 
@@ -37,6 +38,13 @@ export class ProcessService {
       model: model,
       processId: processId
     };
-    this.http.post(endpoint, body).subscribe();
+    var result = this.http.post(endpoint, body);
+    result.toPromise().then(function (r) {
+      console.log(r);
+      new Toast('Model saved', Toast.TYPE_DONE, Toast.TIME_LONG);
+    })
+    .catch(function(error) {
+      new Toast(error.error.message, Toast.TYPE_ERROR, Toast.TIME_LONG);
+    });
   }
 }

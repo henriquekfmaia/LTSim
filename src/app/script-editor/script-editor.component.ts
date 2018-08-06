@@ -14,4 +14,7 @@ export class ScriptEditorComponent implements OnInit {
     
   }
 
+  validateScript(event): void {
+
+  }
 }

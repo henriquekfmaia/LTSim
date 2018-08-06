@@ -47,6 +47,6 @@ export class Relationship {
     }
 
     setSimulationResult(result: Relationship) : void {
-        
+        this.flow = result.flow;
     }
 }

@@ -14,29 +14,36 @@
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <div *ngFor="let m of process.models">
-                <button class="dropdown-item" (click)="changeModel(m)" >{{m.name}}</button>
+                <button class="dropdown-item" (click)="changeModel(m)">{{m.name}}</button>
             </div>
         </div>
     </div>
 </div>
 <br/>
 <ngb-tabset *ngIf="process.model">
-    <ngb-tab title="Input" *ngIf="process.inputLimit == 0" >
+    <!-- *ngIf="process.inputLimit == 0" -->
+    <ngb-tab title="Input">
         <ng-template ngbTabContent>
             <br/>
             <app-input-detail [process]="process"></app-input-detail>
         </ng-template>
     </ngb-tab>
     <ngb-tab title="Parameters" *ngIf="process.model.parameters">
-      <ng-template ngbTabContent>
-        <br/>
-        <app-parameter-detail [model]="process.model"></app-parameter-detail>
-      </ng-template>
+        <ng-template ngbTabContent>
+            <br/>
+            <app-parameter-detail [model]="process.model"></app-parameter-detail>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Output">
+        <ng-template ngbTabContent>
+            <br/>
+            <app-output-detail [process]="process"></app-output-detail>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="Results" *ngIf="process.model.results">
         <ng-template ngbTabContent>
-          <br/>
-          <app-result-detail [model]="process.model"></app-result-detail>
+            <br/>
+            <app-result-detail [model]="process.model"></app-result-detail>
         </ng-template>
     </ngb-tab>
 </ngb-tabset>

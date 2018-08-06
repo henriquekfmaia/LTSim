@@ -5,8 +5,8 @@ import { of } from 'rxjs/observable/of';
 import { ProcessType } from '../classes/process-type';
 import { Process } from '../classes/process';
 import { ProcessService } from '../services/process.service';
-import { Parameter } from '../classes/parameter';
 import { Model } from '../classes/model';
+import { Toast } from "toaster-js";
 
 @Component({
   selector: 'app-process-editor',
@@ -58,6 +58,7 @@ export class ProcessEditorComponent implements OnInit {
   }
 
   saveModel(model: Model, processId: number): void {
+    new Toast('Saving model...', Toast.TYPE_INFO, Toast.TIME_LONG);
     model.Script = model.Script;
     this.processService.saveModel(model, processId);
   }

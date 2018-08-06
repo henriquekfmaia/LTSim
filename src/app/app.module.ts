@@ -23,6 +23,7 @@ import { ResultEditorComponent } from './result-editor/result-editor.component';
 import { ScriptEditorComponent } from './script-editor/script-editor.component';
 import { ResultDetailComponent } from './result-detail/result-detail.component';
 import { InputDetailComponent } from './input-detail/input-detail.component';
+import { OutputDetailComponent } from './output-detail/output-detail.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { InputDetailComponent } from './input-detail/input-detail.component';
     ResultEditorComponent,
     ScriptEditorComponent,
     ResultDetailComponent,
-    InputDetailComponent
+    InputDetailComponent,
+    OutputDetailComponent
   ],
   imports: [
     BrowserModule,
