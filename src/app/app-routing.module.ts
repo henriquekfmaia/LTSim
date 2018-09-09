@@ -5,9 +5,10 @@ import { SimulatorInterfaceComponent } from './simulator-interface/simulator-int
 import { ProcessEditorComponent } from './process-editor/process-editor.component';
 
 const routes: Routes = [
-  { path: '', component: SimulatorInterfaceComponent },
+  { path: 'simulator', component: SimulatorInterfaceComponent },
   { path: 'editor', component: ProcessEditorComponent },
-  // { path: '', redirectTo: '/simulator', pathMatch: 'full' }
+  { path: '*', redirectTo: '/index.html'},
+  { path: '', redirectTo: '/index.html', pathMatch: 'full' }
 ];
 
 @NgModule({
