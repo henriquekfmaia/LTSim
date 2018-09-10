@@ -10,6 +10,7 @@
                 {{ type.name }}
             </button>
         </span>
+        <button type="button" class="btn btn-warning" (click)="back()" style="height: 50px;">Back</button>
     </div>
     <div class="col-12" *ngIf="state === 2">
         <span *ngFor="let process of processes">
@@ -17,5 +18,9 @@
                 {{ process.name }}
             </button>
         </span>
+        <button type="button" class="btn btn-warning" (click)="back()" style="height: 50px;">Back</button>
     </div>
+    <!-- <div class="col-12" *ngIf="state !== 0">
+        <button type="button" class="btn btn-warning" (click)="back()" style="height: 50px;">Back</button>
+    </div> -->
 </nav>

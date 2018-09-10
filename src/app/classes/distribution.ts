@@ -25,7 +25,7 @@ export class Distribution {
     }
 
     setKeysFromArrayFromDown(): void {
-        for(var i = 1; i <= this.size; i++) {
+        for(var i = 0; i < this.size; i++) {
             if(!this.array[i]) {
                 this.array[i] = new Parameter();
             }
@@ -33,14 +33,14 @@ export class Distribution {
             this.array[i].name = this.array[i].key;
             this.array[i].value = 0;
         }
-        this.array[0] = new Parameter();
-        this.array[0].key = '< ' + this.array[1].key;
-        this.array[0].name = this.array[0].key;
+        this.array[this.size] = new Parameter();
+        this.array[this.size].key = '< ' + this.array[1].key;
+        this.array[this.size].name = this.array[this.size].key;
         this.calculateFirst();
     }
     
     setKeysFromArrayFromUp(): void {
-        for(var i = this.size; i > 0; i--) {
+        for(var i = this.size-1; i >= 0; i--) {
             if(!this.array[i]) {
                 this.array[i] = new Parameter();
             }
@@ -48,9 +48,9 @@ export class Distribution {
             this.array[i].name = this.array[i].key;
             this.array[i].value = 0;
         }
-        this.array[0] = new Parameter();
-        this.array[0].key = '< ' + this.array[1].key;
-        this.array[0].name = this.array[0].key;
+        this.array[this.size] = new Parameter();
+        this.array[this.size].key = '< ' + this.array[1].key;
+        this.array[this.size].name = this.array[this.size].key;
         this.calculateFirst();
     }
 
@@ -91,7 +91,7 @@ export class Distribution {
 
     calculateFirst(): void {
         var sum = 0;
-        for(var i = 1; i < this.array.length; i++) {
+        for(var i = 0; i < this.array.length-1; i++) {
             var term = parseFloat(this.array[i].value);
             if(!isNaN(term)) {
                 sum = sum + term;
@@ -100,6 +100,20 @@ export class Distribution {
                 this.array[i].value = 0;
             }
         }
-        this.array[0].value = 100 - sum;
+        this.array[this.array.length-1].value = 100 - sum;
     }
+
+    // calculateFirst(): void {
+    //     var sum = 0;
+    //     for(var i = 1; i < this.array.length; i++) {
+    //         var term = parseFloat(this.array[i].value);
+    //         if(!isNaN(term)) {
+    //             sum = sum + term;
+    //         }
+    //         else {
+    //             this.array[i].value = 0;
+    //         }
+    //     }
+    //     this.array[0].value = 100 - sum;
+    // }
 }

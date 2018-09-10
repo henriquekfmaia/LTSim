@@ -12,7 +12,7 @@
             <label class="col-sm-4 control-label" for="result">{{result.name}} ({{result.unit}})</label>
             <div style="border-width: 1px; border-style: solid; border-radius: 16px; margin: 5px;">
                 <br/>
-                <div *ngFor="let item of result.value.array | reverse; last as isLast">
+                <div *ngFor="let item of result.value.array; last as isLast">
                     <div class="form-group row col-sm-12" *ngIf="item">
                         <label class="col-sm-4 control-label" style="margin-top: 8px;" for="item">{{item.name}} ({{result.unit}})</label>
                         <div class="col-sm-8">

@@ -70,4 +70,8 @@ export class ActionBarComponent implements OnInit {
       return of(this.processCache[index]);
     }
   }
+
+  back(): void {
+    this.state = ActionBarStateEnum.IDLE;
+  }
 }

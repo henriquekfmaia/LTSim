@@ -4,31 +4,34 @@
     <div class="form-group form-group-sm row col-sm-12">
       <label class="col-sm-4 control-label" for="waterFlow">Water Flow</label>
       <div class="col-sm-8">
+        <label class="col-sm-4 control-label" for="waterFlowValue" *ngIf="!allowEdit">{{input.flow.waterFlow.value}}</label>
         <input type="text" class="form-control" id="parameterName" name="waterFlow" [(ngModel)]="input.flow.waterFlow.value" *ngIf="allowEdit">
-        <input type="text" class="form-control" id="parameterName" name="waterFlow" [(ngModel)]="input.flow.waterFlow.value" placeholder="Waiting for simulation"
-          *ngIf="!allowEdit" readonly>
+        <!-- <input type="text" class="form-control" id="parameterName" name="waterFlow" [(ngModel)]="input.flow.waterFlow.value" placeholder="Waiting for simulation"
+          *ngIf="!allowEdit" readonly> -->
       </div>
     </div>
     <div class="form-group form-group-sm row col-sm-12">
       <label class="col-sm-4 control-label" for="massFlow">Mass Flow</label>
       <div class="col-sm-8">
+        <label class="col-sm-4 control-label" for="massFlowValue" *ngIf="!allowEdit">{{input.flow.massFlow.value}}</label>
         <input type="text" class="form-control" id="parameterName" name="massFlow" [(ngModel)]="input.flow.massFlow.value" *ngIf="allowEdit">
-        <input type="text" class="form-control" id="parameterName" name="massFlow" [(ngModel)]="input.flow.massFlow.value" placeholder="Waiting for simulation"
-          *ngIf="!allowEdit" readonly>
+        <!-- <input type="text" class="form-control" id="parameterName" name="massFlow" [(ngModel)]="input.flow.massFlow.value" placeholder="Waiting for simulation"
+          *ngIf="!allowEdit" readonly> -->
       </div>
     </div>
     <div>
       <label class="col-sm-4 control-label" for="sizeDistribution">Size Distribution</label>
       <div style="border-width: 1px; border-style: solid; border-radius: 16px; margin: 5px;">
         <br/>
-        <div *ngFor="let item of input.flow.sizeDistribution.value.array | reverse; last as isLast">
+        <div *ngFor="let item of input.flow.sizeDistribution.value.array; last as isLast">
           <div class="form-group row col-sm-12" *ngIf="item">
             <label class="col-sm-4 control-label" style="margin-top: 8px;" for="item">{{item.name}} ({{input.flow.sizeDistribution.unit}})</label>
             <div class="col-sm-8">
+              <label class="col-sm-4 control-label" style="margin-top: 8px;" for="itemValue" *ngIf="!allowEdit">{{item.value}}</label>
               <input type="number" class="form-control" id="parameterName" name="{{item.key}}" (input)="calculateFirst(input.flow.sizeDistribution.value)"
                 [(ngModel)]="item.value" [readonly]="isLast" *ngIf="allowEdit">
-              <input type="number" class="form-control" id="parameterName" name="{{item.key}}" [(ngModel)]="item.value" [readonly]="!allowEdit"
-                placeholder="Waiting for simulation" *ngIf="!allowEdit">
+              <!-- <input type="number" class="form-control" id="parameterName" name="{{item.key}}" [(ngModel)]="item.value" [readonly]="!allowEdit"
+                placeholder="Waiting for simulation" *ngIf="!allowEdit"> -->
             </div>
           </div>
         </div>
