@@ -6,7 +6,7 @@ export class DefaultDistribution extends Distribution {
     constructor() {
         var fixedIncrement = true;
         var increment = 10;
-        var size = 16;
+        var size = 15;
         var limit = 100;
         var startFromUp = false;
         super(fixedIncrement, increment, size, limit, startFromUp);
@@ -29,8 +29,7 @@ export class DefaultDistribution extends Distribution {
         this.array[12].key = '0.005';
         this.array[13].key = '0.002';
         this.array[14].key = '0.001';
-        this.array[15].key = '0.0001';
-        this.array[16].key = '< 0.0001';
+        this.array[15].key = '< 0.001';
 
         this.array[0].name = '2';
         this.array[1].name = '1';
@@ -47,7 +46,6 @@ export class DefaultDistribution extends Distribution {
         this.array[12].name = '0.005';
         this.array[13].name = '0.002';
         this.array[14].name = '0.001';
-        this.array[15].name = '0.0001';
-        this.array[16].name = '< 0.0001';
+        this.array[15].name = '< 0.001';
     }
 }
